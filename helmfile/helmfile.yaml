@@ -1,0 +1,41 @@
+#default values to set for args along with dedicated keys that can be set by contributers, cli args take precedence over these
+helmDefaults:
+  tillerNamespace: kube-system
+
+# Chart repositories used from within this state file
+#
+# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
+# to use repositories other than the official repository or one backend by chartmuseum.
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com/
+
+environments:
+  home:
+    secrets:
+      - environments/home/google-dynamic-dns-update/secrets.yaml
+      - environments/home/traefik/secrets.yaml
+
+releases:
+  # monitoring
+  - name: prometheus
+    namespace: monitoring
+    chart: stable/prometheus
+    values:
+      - ./environments/home/prometheus/values.yaml
+  - name: grafana
+    namespace: monitoring
+    chart: stable/grafana
+    values:
+      - ./environments/home/grafana/values.yaml.gotmpl
+  # kube-system
+  - name: traefik
+    namespace: kube-system
+    chart: stable/traefik
+    values:
+      - ./environments/home/traefik/values.yaml.gotmpl
+  - name: google-dynamic-dns-update
+    namespace: kube-system
+    chart: ../charts/google-dynamic-dns-update
+    values:
+      - ./templates/google-dns-values.yaml.gotmpl
