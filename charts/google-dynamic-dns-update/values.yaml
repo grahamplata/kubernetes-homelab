@@ -1,0 +1,15 @@
+# Default values for google-dynamic-dns-update.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+google_domains:
+  user: foo
+  pass: bar
+  host: foo.bar.com
+
+# daily at noon
+cronSchedule: "0 12 * * *"
+
+image:
+  repository: byrnedo/alpine-curl
+  tag: latest
+  pullPolicy: Always

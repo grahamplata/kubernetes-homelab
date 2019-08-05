@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "google-dynamic-dns-update.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "google-dynamic-dns-update.name" . }}
+    helm.sh/chart: {{ include "google-dynamic-dns-update.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  schedule: {{ .Values.cronSchedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: curl
+            image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command:
+            - "/bin/sh"
+            - "-c"
+            args: 
+            - "/curl/dns.sh"
+            volumeMounts:
+            - name: run
+              mountPath: /curl/
+          volumes:
+          - name: run
+            configMap:
+              name: {{ include "google-dynamic-dns-update.name" . }}
+              defaultMode: 0744
+          restartPolicy: OnFailure
