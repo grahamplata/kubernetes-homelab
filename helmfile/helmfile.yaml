@@ -1,11 +1,6 @@
-#default values to set for args along with dedicated keys that can be set by contributers, cli args take precedence over these
 helmDefaults:
   tillerNamespace: kube-system
 
-# Chart repositories used from within this state file
-#
-# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
-# to use repositories other than the official repository or one backend by chartmuseum.
 repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com/
