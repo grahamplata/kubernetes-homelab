@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: traefik-volume
+  namespace: default
+  labels:
+    type: local
+spec:
+  storageClassName: traefik-volume
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kube"
