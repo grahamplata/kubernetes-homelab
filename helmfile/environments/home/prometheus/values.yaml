@@ -845,7 +845,7 @@ pushgateway:
   ingress:
     ## If true, pushgateway Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     ## pushgateway Ingress annotations
     ##
@@ -856,8 +856,8 @@ pushgateway:
     ## pushgateway Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
-    #   - pushgateway.domain.com
+    hosts:
+      - prometheus.home.grahamplata.com
     #   - domain.com/pushgateway
 
     ## pushgateway Ingress TLS configuration
