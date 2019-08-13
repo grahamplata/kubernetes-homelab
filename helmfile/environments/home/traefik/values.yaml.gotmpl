@@ -1,8 +1,8 @@
-serviceType: NodePort
+serviceType: LoadBalancer
 service:
   nodePorts:
-    http: 80
-    https: 443
+    http: 30080
+    https: 30443
 accessLogs:
   enabled: true
 rbac:
@@ -16,7 +16,7 @@ acme:
   staging: false
   challengeType: tls-alpn-01
   persistence:
-    size: 1Gi
+    size: 500Mi
     storageClass: traefik-volume
   dnsProvider:
     name: digitalocean

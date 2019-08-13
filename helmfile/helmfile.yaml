@@ -12,17 +12,6 @@ environments:
       - environments/home/traefik/secrets.yaml
 
 releases:
-  # monitoring
-  - name: prometheus
-    namespace: monitoring
-    chart: stable/prometheus
-    values:
-      - ./environments/home/prometheus/values.yaml
-  - name: grafana
-    namespace: monitoring
-    chart: stable/grafana
-    values:
-      - ./environments/home/grafana/values.yaml.gotmpl
   # kube-system
   - name: traefik
     namespace: kube-system
@@ -34,3 +23,19 @@ releases:
     chart: ../charts/google-dynamic-dns-update
     values:
       - ./templates/google-dns-values.yaml.gotmpl
+  - name: metallb
+    namespace: kube-system
+    chart: stable/metallb
+    values:
+      - ./environments/home/metallb/values.yaml
+  # monitoring
+  - name: prometheus
+    namespace: monitoring
+    chart: stable/prometheus
+    values:
+      - ./environments/home/prometheus/values.yaml
+  - name: grafana
+    namespace: monitoring
+    chart: stable/grafana
+    values:
+      - ./environments/home/grafana/values.yaml.gotmpl
