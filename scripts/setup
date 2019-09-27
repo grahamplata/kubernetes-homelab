@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+./scripts/sync-hooks
+
+cat <<ReadMe
+MOTD:
+  Your Machine is now setup
+    - Make sure to take out the trash
+ReadMe
