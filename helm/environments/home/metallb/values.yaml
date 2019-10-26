@@ -64,7 +64,7 @@ controller:
   image:
     repository: metallb/controller
     tag: v0.7.3
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   resources:
     {}
     # limits:
@@ -80,7 +80,7 @@ speaker:
   image:
     repository: metallb/speaker
     tag: v0.7.3
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   resources:
     {}
     # limits:
