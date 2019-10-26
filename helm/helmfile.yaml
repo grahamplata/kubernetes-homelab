@@ -1,0 +1,37 @@
+helmDefaults:
+  tillerNamespace: kube-system
+
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com/
+
+environments:
+  home:
+
+releases:
+  # kube-system
+  - name: externaldns
+    namespace: kube-system
+    chart: stable/external-dns
+    values:
+      - environments/home/externaldns/values.yaml
+    secrets:
+      - ./environments/home/externaldns/secrets.yaml
+  - name: metallb
+    namespace: kube-system
+    chart: stable/metallb
+    values:
+      - environments/home/metallb/values.yaml
+  # monitoring
+  - name: prometheus
+    namespace: monitoring
+    chart: stable/prometheus
+    values:
+      - environments/home/prometheus/values.yaml
+  - name: grafana
+    namespace: monitoring
+    chart: stable/grafana
+    values:
+      - environments/home/grafana/values.yaml.gotmpl
+    secrets:
+      - environments/home/grafana/secrets.yaml
