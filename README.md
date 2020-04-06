@@ -1,4 +1,4 @@
-# Kubernetes @ Home
+# Kubernetes Home Lab
 
 ## Description
 

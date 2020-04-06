@@ -1,0 +1,65 @@
+# Chart repositories used from within this state file
+#
+# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
+# to use repositories other than the official repository or one backend by chartmuseum.
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com/
+
+# helmDefaults
+# Values to set for args along with dedicated keys that can be set by contributers
+helmDefaults:
+
+# The list of environments managed by helmfile.
+#
+# The default is `environments: {"default": {}}` which implies:
+#
+# - `{{ .Environment.Name }}` evaluates to "default"
+# - `{{ .Values }}` being empty
+environments:
+  default:
+  home:
+
+# Templating
+# Uses Go templates for templating and the functions in the Sprig library.
+templates:
+  default: &default
+    chart: stable/{{`{{ .Release.Name }}`}}
+    namespace: kube-system
+    missingFileHandler: Warn
+    values:
+      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml
+      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
+    secrets:
+      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
+  monitoring: &monitoring
+    <<: *default
+    namespace: "monitoring"
+  metallb-system: &metallb-system
+    <<: *default
+    namespace: "metallb-system"
+  external-dns: &external-dns
+    <<: *default
+    namespace: "external-dns"
+  home-assistant: &home-assistant
+    <<: *default
+    namespace: "home-assistant"
+
+# The desired states of Helm releases.
+#
+# Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
+releases:
+  # external-dns
+  - name: external-dns
+    <<: *default
+  # metallb-system
+  - name: metallb
+    <<: *metallb-system
+  # monitoring
+  - name: prometheus
+    <<: *monitoring
+  - name: grafana
+    <<: *monitoring
+  # home-assistant
+  - name: home-assistant
+    <<: *home-assistant
