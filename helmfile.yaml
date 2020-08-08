@@ -5,6 +5,8 @@
 repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
