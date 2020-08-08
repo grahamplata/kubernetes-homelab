@@ -77,7 +77,7 @@ persistence:
   ## If you want to use a volume on the host machine instead of a PVC:
   # hostPath: /path/to/the/config/folder
   accessMode: ReadWriteOnce
-  size: 5Gi
+  size: 2Gi
 
 ## Additional hass container environment variable
 ## For instance to add a http_proxy

@@ -3,68 +3,16 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/bound-by-controller: "yes"
-  creationTimestamp: null
   finalizers:
   - kubernetes.io/pv-protection
   labels:
     app: home-assistant
-  managedFields:
-  - apiVersion: v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:labels:
-          .: {}
-          f:app: {}
-      f:spec:
-        f:accessModes: {}
-        f:capacity:
-          .: {}
-          f:storage: {}
-        f:hostPath:
-          .: {}
-          f:path: {}
-          f:type: {}
-        f:persistentVolumeReclaimPolicy: {}
-        f:volumeMode: {}
-    manager: kubernetic-backend-server
-    operation: Update
-    time: "2020-04-06T17:08:56Z"
-  - apiVersion: v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:pv.kubernetes.io/bound-by-controller: {}
-      f:spec:
-        f:claimRef:
-          .: {}
-          f:apiVersion: {}
-          f:kind: {}
-          f:name: {}
-          f:namespace: {}
-          f:resourceVersion: {}
-          f:uid: {}
-      f:status:
-        f:phase: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2020-04-06T17:09:09Z"
   name: home-assistant
-  selfLink: /api/v1/persistentvolumes/home-assistant
 spec:
   accessModes:
   - ReadWriteOnce
   capacity:
-    storage: 5Gi
-  claimRef:
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    name: home-assistant
-    namespace: home-assistant
-    resourceVersion: "142406"
-    uid: cf28cb6e-65e7-485c-ac18-255b251f2ced
+    storage: 2Gi
   hostPath:
     path: /data
     type: ""
