@@ -46,6 +46,8 @@ templates:
   home-assistant: &home-assistant
     <<: *default
     namespace: "home-assistant"
+  nfs-client-provisioner: &nfs-client-provisioner
+    <<: *default
 
 # The desired states of Helm releases.
 #
@@ -65,3 +67,6 @@ releases:
   # home-assistant
   - name: home-assistant
     <<: *home-assistant
+  # nfs-client-provisioner
+  - name: nfs-client-provisioner
+    <<: *nfs-client-provisioner
