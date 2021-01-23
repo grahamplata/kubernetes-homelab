@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Apply git hooks
 ./scripts/sync-hooks
 
+# Install required tools
+./scripts/install
+
 cat <<ReadMe
+
 MOTD:
   Your Machine is now setup
     - Make sure to take out the trash
