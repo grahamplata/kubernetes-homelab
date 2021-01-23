@@ -39,7 +39,7 @@ sync_hooks() {
         echo "Creating symlink from '$dest' to '$hook'."
         ln -s "$hook" "$dest"
     done
-    echo "Finished."
+    echo "Finished Syncing Hooks."
     return $err
 }
 
