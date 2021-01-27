@@ -7,6 +7,8 @@ repositories:
     url: https://charts.helm.sh/stable
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -31,7 +33,7 @@ templates:
     missingFileHandler: Warn
     values:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml
-      # - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
+      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
     secrets:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
   monitoring: &monitoring
@@ -45,3 +47,6 @@ templates:
 releases:
   - name: prometheus
     <<: *monitoring
+  - name: grafana
+    <<: *monitoring
+    chart: grafana/{{`{{ .Release.Name }}`}}
