@@ -44,10 +44,6 @@ templates:
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
-  minecraft: &minecraft
-    <<: *default
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    namespace: "minecraft"
 
 # The desired states of Helm releases.
 #
@@ -60,5 +56,3 @@ releases:
   - name: grafana
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
-  - name: minecraft-bedrock
-    <<: *minecraft
