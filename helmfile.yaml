@@ -9,6 +9,10 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: grafana
     url: https://grafana.github.io/helm-charts
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: itzg
+    url: https://itzg.github.io/minecraft-server-charts/
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -40,13 +44,21 @@ templates:
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
+  minecraft: &minecraft
+    <<: *default
+    chart: itzg/{{`{{ .Release.Name }}`}}
+    namespace: "minecraft"
 
 # The desired states of Helm releases.
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  # - name: external-dns
+  #   <<: *default
   - name: prometheus
     <<: *monitoring
   - name: grafana
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
+  - name: minecraft-bedrock
+    <<: *minecraft
