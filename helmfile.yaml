@@ -30,6 +30,7 @@ environments:
 templates:
   default: &default
     chart: stable/{{`{{ .Release.Name }}`}}
+    createNamespace: true
     namespace: kube-system
     missingFileHandler: Warn
     values:
@@ -40,6 +41,7 @@ templates:
   monitoring: &monitoring
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
+    createNamespace: true
     namespace: "monitoring"
 
 # The desired states of Helm releases.
@@ -53,3 +55,9 @@ releases:
   - name: grafana
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
+  - name: metallb
+    <<: *default
+    chart: bitnami/{{`{{ .Release.Name }}`}}
+    namespace: metallb-system
+    labels:
+      app: metallb
