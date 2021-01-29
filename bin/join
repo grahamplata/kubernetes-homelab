@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# sudo tee -a /etc/hosts <<EOF
+# 192.168.10.30   k8s-pi-master-01
+# 192.168.10.31   k8s-pi-worker-01
+# 192.168.10.32   k8s-pi-worker-02
+# 192.168.10.33   k8s-pi-worker-03
+# EOF
+
+SERVER_IP=192.168.10.30
+declare -a agents=('192.168.10.31', '192.168.10.32', '192.168.10.33')
+
+for AGENT_IP in ${agents[@]}; do
+    k3sup join --ip $AGENT_IP --server-ip $SERVER_IP --user pi
+done

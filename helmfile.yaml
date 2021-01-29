@@ -11,8 +11,6 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: itzg
-    url: https://itzg.github.io/minecraft-server-charts/
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -26,7 +24,6 @@ helmDefaults: {}
 # - `{{ .Values }}` being empty
 environments:
   default: {}
-  home: {}
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
