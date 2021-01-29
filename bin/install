@@ -7,13 +7,14 @@ tools=(
     helm
     helmfile
     sops
+    pv
 )
 
 main() {
     echo
-    echo "Started installing Required Tools"
+    echo "--- Started installing Required Tools"
     install_tools
-    echo "Finished installing Required Tools"
+    echo "--- Finished installing Required Tools"
 }
 
 have() {

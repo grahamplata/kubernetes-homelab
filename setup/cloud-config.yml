@@ -1,0 +1,54 @@
+#cloud-config
+
+## Set your hostname here, the manage_etc_hosts will update the hosts file entries as well
+hostname: k8s-master
+manage_etc_hosts: true
+
+## Set the locale of the system
+locale: "en_US.UTF-8"
+
+## Set the timezone
+timezone: "America/New_York"
+
+apt_preserve_sources_list: true
+apt_update: true
+apt_upgrade: true
+
+users:
+  - name: pi
+    primary-group: users
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users
+    ssh_import_id: None
+    lock_passwd: true
+    ssh_pwauth: false
+    ssh_authorized_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDiko0ibALax/zepjKGxBGaZAAAj5zvYVcsAEaIJK0wE3wj4Y9AriYwkiNeYXxjDImX/7lqEV+ShAw/RcU4F8TG7YVwffymn9dAB4I+F6XrYGgMOER8xAQTrpKPKGGYLyrnYulTMZ4nRBrplQyjZ+7OGx9ttZKhkfLOasm9Tjw3ZVmOumsME/xGX/c8LBoP+J+m7ngdbaa74j5ig6fkP0FtOmHwFqCPZRBA6B0nHaGukRXC1JBBRo7o2EJ+YzBy2LRbQj3rJW0CAvS5tmgtvDvYi1ZBtzR+dNJ0o8LcXaGPA1tW9qZRRp/zMTS31VYVoU/wlvJRBqgyDdntPmY5x34xcN432+7We7IEQz/xkJSMU/CJoTQeVVbJ/matAU29uPLZ5Z0qufZtPLBAiRp8gKoi63pXQg7DMckyU293DytzqtEo3nalvwkZF6mn2YZoDSLdG1zol8gp4DtvB2O2hGjL2qEwLnolcqVbGOwRZ9rh+I0UYdpjZde7LB+TLPkstjn47MLxaeTz4exrXpna/LYTiAUkId5mbHBlFzSGA0kN78EGTy/yWJ3Hdr52DkORg8tD8MgdgwfrrAIeuCPftQw49gzjzy08BiiaYeKbFUO1y7OXcuvjanXkQbvt37bQDfuqIcbUIuPSTE1WNyx0HiRphbg1aVL2pcRif0LtDdwggw== graham.plata@gmail.com"
+
+write_files:
+  - path: /etc/netplan/50-cloud-init.yaml
+    permissions: "0644"
+    content: |
+      network:
+        version: 2
+        ethernets:
+          eth0:
+            addresses:
+              - 192.168.1.121/24
+            gateway4: 192.168.1.1
+            nameservers:
+              addresses:
+                - 1.1.1.1
+                - 8.8.8.8
+
+runcmd:
+  - [sudo, netplan, apply]
+  - [
+      sudo,
+      sed,
+      -i,
+      "s/PasswordAuthentication no/PasswordAuthentication yes/g",
+      /etc/ssh/sshd_config,
+    ]
+  - [sudo, systemctl, restart, sshd]

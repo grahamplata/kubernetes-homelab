@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+FLASH_VERSION=2.5.0
+FLASH_FILE=/usr/local/bin/flash
+UBUNTU_VERSION=20.04.1
+UBUNTU_FILE=~/Downloads/ubuntu-${UBUNTU_VERSION}-preinstalled-server-arm64+raspi.img
+
+if [ ! -f "$FLASH_FILE" ]; then
+    echo "--- Downloading hypriot Flash v${FLASH_VERSION}"
+    sudo curl -L \
+        "https://github.com/hypriot/flash/releases/download/${FLASH_VERSION}/flash" \
+        -o /usr/local/bin/flash
+    sudo chmod +x /usr/local/bin/flash
+    echo "Done."
+fi
+
+if [ ! -f "$UBUNTU_FILE" ]; then
+    echo "--- Downloading ubuntu server v${UBUNTU_VERSION}"
+    curl -L "http://cdimage.ubuntu.com/releases/focal/release/ubuntu-${UBUNTU_VERSION}-preinstalled-server-arm64+raspi.img.xz" \
+        -o ~/Downloads/ubuntu-${UBUNTU_VERSION}-preinstalled-server-arm64+raspi.img.xz
+    unxz -T 0 ~/Downloads/ubuntu-${UBUNTU_VERSION}-preinstalled-server-arm64+raspi.img.xz
+    echo "Done."
+fi
+
+if [ -f $FLASH_FILE -a -f $UBUNTU_FILE ]; then
+    echo "--- Flashing ubuntu server"
+    flash \
+        --userdata setup/cloud-config.yml \
+        ~/Downloads/ubuntu-${UBUNTU_VERSION}-preinstalled-server-arm64+raspi.img
+    echo "Done."
+fi

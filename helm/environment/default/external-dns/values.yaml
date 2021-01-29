@@ -1,0 +1,43 @@
+## Bitnami external-dns image version
+## ref: https://hub.docker.com/r/bitnami/external-dns/tags/
+##
+image:
+  repository: bitnami/external-dns
+  tag: 0.7.6-debian-10-r0
+  pullPolicy: IfNotPresent
+
+## DNS provider where the DNS records will be created. Available providers are:
+## - alibabacloud, aws, azure, azure-private-dns, cloudflare, coredns, designate, digitalocean, google, hetzner, infoblox, linode, rfc2136, transip
+##
+provider: google
+
+## Google configuration to be set via arguments/env. variables
+##
+google:
+  ## Google Project to use
+  ##
+  project: ""
+  ## Google Application Credentials
+  ##
+  serviceAccountSecret: ""
+  serviceAccountSecretKey: "credentials.json"
+  serviceAccountKey: ""
+
+replicas: 1
+
+## Kubernetes svc configutarion
+##
+service:
+  enabled: true
+  type: ClusterIP
+
+## ServiceAccount parameters
+## https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+##
+serviceAccount:
+  create: true
+
+## Prometheus Exporter / Metrics
+##
+metrics:
+  enabled: true

@@ -4,13 +4,17 @@
 # to use repositories other than the official repository or one backend by chartmuseum.
 repositories:
   - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com/
+    url: https://charts.helm.sh/stable
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
-helmDefaults:
+helmDefaults: {}
 
 # The list of environments managed by helmfile.
 #
@@ -19,8 +23,7 @@ helmDefaults:
 # - `{{ .Environment.Name }}` evaluates to "default"
 # - `{{ .Values }}` being empty
 environments:
-  default:
-  home:
+  default: {}
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
@@ -36,37 +39,17 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
   monitoring: &monitoring
     <<: *default
+    chart: prometheus-community/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
-  metallb-system: &metallb-system
-    <<: *default
-    namespace: "metallb-system"
-  external-dns: &external-dns
-    <<: *default
-    namespace: "external-dns"
-  home-assistant: &home-assistant
-    <<: *default
-    namespace: "home-assistant"
-  nfs-client-provisioner: &nfs-client-provisioner
-    <<: *default
 
 # The desired states of Helm releases.
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
-  # external-dns
-  - name: external-dns
-    <<: *default
-  # metallb-system
-  - name: metallb
-    <<: *metallb-system
-  # monitoring
+  # - name: external-dns
+  #   <<: *default
   - name: prometheus
     <<: *monitoring
   - name: grafana
     <<: *monitoring
-  # home-assistant
-  - name: home-assistant
-    <<: *home-assistant
-  # nfs-client-provisioner
-  - name: nfs-client-provisioner
-    <<: *nfs-client-provisioner
+    chart: grafana/{{`{{ .Release.Name }}`}}
