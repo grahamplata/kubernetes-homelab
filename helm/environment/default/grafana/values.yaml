@@ -121,12 +121,12 @@ podPortName: grafana
 ##
 service:
   type: LoadBalancer
-  port: 80
+  port: 3000
   targetPort:
     3000
     # targetPort: 4181 To be used with a proxy extraContainer
   annotations:
-    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/address-pool: k3s-cluster-pool
   labels: {}
   portName: service
 
