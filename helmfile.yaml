@@ -50,6 +50,10 @@ templates:
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  - name: external-dns
+    <<: *default
+    namespace: external-dns
+    chart: bitnami/{{`{{ .Release.Name }}`}}
   - name: traefik
     <<: *default
     chart: traefik/{{`{{ .Release.Name }}`}}
