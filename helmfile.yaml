@@ -54,17 +54,22 @@ releases:
     <<: *default
     namespace: external-dns
     chart: bitnami/{{`{{ .Release.Name }}`}}
+    version: 4.6.0
   - name: traefik
     <<: *default
     chart: traefik/{{`{{ .Release.Name }}`}}
+    version: 9.14.2
   - name: prometheus
     <<: *monitoring
+    version: 13.2.1
   - name: grafana
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
+    version: 6.2.1
   - name: metallb
     <<: *default
     chart: bitnami/{{`{{ .Release.Name }}`}}
     namespace: metallb-system
+    version: 2.2.2
     labels:
       app: metallb
