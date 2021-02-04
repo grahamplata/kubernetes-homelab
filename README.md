@@ -5,7 +5,7 @@
 My Kubernetes homelab configuration.
 
 ## Bill of Materials
-![Cluster](../kubernetes-homelab/docs/k3s.png)
+![Cluster](./docs/k3s.png)
 
 
 ## Stack
