@@ -75,3 +75,8 @@ releases:
     version: 2.2.2
     labels:
       app: metallb
+  - name: openfaas
+    <<: *default
+    namespace: openfaas
+    chart: openfaas/{{`{{ .Release.Name }}`}}
+    version: 7.0.4
