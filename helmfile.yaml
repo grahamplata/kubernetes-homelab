@@ -13,6 +13,8 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: traefik
     url: https://helm.traefik.io/traefik
+  - name: openfaas
+    url: https://openfaas.github.io/faas-netes
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -73,3 +75,8 @@ releases:
     version: 2.2.2
     labels:
       app: metallb
+  - name: openfaas
+    <<: *default
+    namespace: openfaas
+    chart: openfaas/{{`{{ .Release.Name }}`}}
+    version: 7.0.4
