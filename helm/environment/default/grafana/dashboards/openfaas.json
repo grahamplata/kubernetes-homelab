@@ -1,0 +1,891 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "description": "OpenFaaS dashboard",
+    "editable": true,
+    "gnetId": 11202,
+    "graphTooltip": 0,
+    "id": 7,
+    "iteration": 1612819674631,
+    "links": [],
+    "panels": [
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$env",
+            "decimals": 0,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 6,
+                "w": 11,
+                "x": 0,
+                "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.5",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "repeat": null,
+            "repeatDirection": "h",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "dimensions": {},
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\"}[1m])*60)",
+                    "expression": "",
+                    "format": "time_series",
+                    "groupBy": [
+                        {
+                            "params": [
+                                "$__interval"
+                            ],
+                            "type": "time"
+                        },
+                        {
+                            "params": [
+                                "null"
+                            ],
+                            "type": "fill"
+                        }
+                    ],
+                    "highResolution": false,
+                    "id": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function",
+                    "metricName": "",
+                    "namespace": "",
+                    "orderByTime": "ASC",
+                    "period": "",
+                    "policy": "default",
+                    "refId": "A",
+                    "region": "default",
+                    "resultFormat": "time_series",
+                    "returnData": false,
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "value"
+                                ],
+                                "type": "field"
+                            },
+                            {
+                                "params": [],
+                                "type": "mean"
+                            }
+                        ]
+                    ],
+                    "statistics": [
+                        "Average"
+                    ],
+                    "tags": []
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "TOTAL INVOCATIONS CHANGE IN 1 MINUTE",
+            "tooltip": {
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$env",
+            "decimals": 0,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 3,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 6,
+                "w": 10,
+                "x": 11,
+                "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 4,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 3,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.5",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(rate(gateway_functions_seconds_sum{function_name=\"$function\"}[1m])*60) / sum(rate(gateway_functions_seconds_count{function_name=\"$function\"}[1m])*60) * 1000",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "$function",
+                    "metric": "gateway_functions_seconds_sum",
+                    "refId": "A",
+                    "step": 60
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "AVERAGE EXECUTION DURATIONS CHANGE IN 1 MINUTE",
+            "tooltip": {
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "ms",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "cacheTimeout": null,
+            "colorBackground": true,
+            "colorPrefix": false,
+            "colorValue": false,
+            "colors": [
+                "#d44a3a",
+                "rgba(237, 129, 40, 0.89)",
+                "#299c46"
+            ],
+            "datasource": "$env",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "format": "none",
+            "gauge": {
+                "maxValue": 100,
+                "minValue": 0,
+                "show": false,
+                "thresholdLabels": false,
+                "thresholdMarkers": true
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 21,
+                "y": 0
+            },
+            "id": 13,
+            "interval": null,
+            "links": [],
+            "mappingType": 2,
+            "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+            ],
+            "maxDataPoints": 100,
+            "nullPointMode": "connected",
+            "nullText": null,
+            "postfix": "",
+            "postfixFontSize": "50%",
+            "prefix": "",
+            "prefixFontSize": "50%",
+            "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                },
+                {
+                    "from": "0",
+                    "text": "UP/DOWN",
+                    "to": "50"
+                },
+                {
+                    "from": "100",
+                    "text": "UP",
+                    "to": "100"
+                },
+                {
+                    "from": "0",
+                    "text": "DOWN",
+                    "to": "0"
+                }
+            ],
+            "sparkline": {
+                "fillColor": "rgba(31, 118, 189, 0.18)",
+                "full": false,
+                "lineColor": "rgb(31, 120, 193)",
+                "show": false
+            },
+            "tableColumn": "",
+            "targets": [
+                {
+                    "expr": "count(sum(gateway_service_count{function_name=\"$function\"}) > 0)*100/count(sum(gateway_service_count{function_name=\"$function\"})) OR on() vector(0)",
+                    "format": "time_series",
+                    "instant": true,
+                    "intervalFactor": 1,
+                    "legendFormat": "",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": "0,100",
+            "title": "SERVICE UP/DOWN",
+            "type": "singlestat",
+            "valueFontSize": "150%",
+            "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "DOWN",
+                    "value": "null"
+                },
+                {
+                    "op": "=",
+                    "text": "",
+                    "value": "0"
+                }
+            ],
+            "valueName": "current"
+        },
+        {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorPrefix": false,
+            "colorValue": false,
+            "colors": [
+                "#299c46",
+                "rgba(237, 129, 40, 0.89)",
+                "#d44a3a"
+            ],
+            "datasource": "$env",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "format": "none",
+            "gauge": {
+                "maxValue": 100,
+                "minValue": 0,
+                "show": false,
+                "thresholdLabels": false,
+                "thresholdMarkers": true
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 3,
+                "x": 21,
+                "y": 5
+            },
+            "id": 9,
+            "interval": null,
+            "links": [],
+            "mappingType": 1,
+            "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+            ],
+            "maxDataPoints": 100,
+            "nullPointMode": "connected",
+            "nullText": null,
+            "postfix": "",
+            "postfixFontSize": "50%",
+            "prefix": "",
+            "prefixFontSize": "50%",
+            "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+            ],
+            "sparkline": {
+                "fillColor": "rgba(31, 118, 189, 0.18)",
+                "full": false,
+                "lineColor": "rgb(31, 120, 193)",
+                "show": true
+            },
+            "tableColumn": "",
+            "targets": [
+                {
+                    "expr": "sum(gateway_function_invocation_total{function_name=\"$function\"})",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": "",
+            "title": "TOTAL INVOCATIONS",
+            "type": "singlestat",
+            "valueFontSize": "150%",
+            "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "N/A",
+                    "value": "null"
+                }
+            ],
+            "valueName": "range"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$env",
+            "decimals": 0,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 11,
+                "x": 0,
+                "y": 6
+            },
+            "hiddenSeries": false,
+            "hideTimeOverride": false,
+            "id": 7,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "hideEmpty": false,
+                "hideZero": false,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.5",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"200\"}[1m])*60)",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "$function - HTTP 200",
+                    "metric": "gateway_function_invocation_total",
+                    "refId": "A",
+                    "step": 60
+                },
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"400\"}[1m])*60)",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function - HTTP 400",
+                    "refId": "B"
+                },
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"404\"}[1m])*60)",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function - HTTP 404",
+                    "refId": "C"
+                },
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"429\"}[1m])*60)",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function - HTTP 429",
+                    "refId": "F"
+                },
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"500\"}[1m])*60)",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function - HTTP 500",
+                    "refId": "D"
+                },
+                {
+                    "expr": "sum(rate(gateway_function_invocation_total{function_name=\"$function\", code=\"503\"}[1m])*60)",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function - HTTP 503",
+                    "refId": "E"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HTTP REQUESTS CODE CHANGE IN 1 MINUTE",
+            "tooltip": {
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": null,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "decimals": null,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$env",
+            "decimals": 0,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 3,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 10,
+                "x": 11,
+                "y": 6
+            },
+            "hiddenSeries": false,
+            "id": 11,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.5",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(gateway_service_count{function_name=\"$function\"})",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "$function",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "GATEWAY SERVICE COUNT",
+            "tooltip": {
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorPrefix": false,
+            "colorValue": false,
+            "colors": [
+                "#299c46",
+                "rgba(237, 129, 40, 0.89)",
+                "#d44a3a"
+            ],
+            "datasource": "$env",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "format": "ms",
+            "gauge": {
+                "maxValue": 100,
+                "minValue": 0,
+                "show": false,
+                "thresholdLabels": false,
+                "thresholdMarkers": true
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 3,
+                "x": 21,
+                "y": 9
+            },
+            "id": 12,
+            "interval": null,
+            "links": [],
+            "mappingType": 1,
+            "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+            ],
+            "maxDataPoints": 100,
+            "nullPointMode": "connected",
+            "nullText": null,
+            "postfix": "",
+            "postfixFontSize": "50%",
+            "prefix": "",
+            "prefixFontSize": "50%",
+            "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+            ],
+            "sparkline": {
+                "fillColor": "rgba(31, 118, 189, 0.18)",
+                "full": false,
+                "lineColor": "rgb(31, 120, 193)",
+                "show": true
+            },
+            "tableColumn": "",
+            "targets": [
+                {
+                    "expr": "sum(gateway_functions_seconds_sum{function_name=\"$function\"}) / sum(gateway_functions_seconds_count{function_name=\"$function\"}) * 1000",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": "",
+            "title": "AVERAGE RESPONSE TIME",
+            "type": "singlestat",
+            "valueFontSize": "150%",
+            "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "N/A",
+                    "value": "null"
+                }
+            ],
+            "valueName": "range"
+        }
+    ],
+    "refresh": "1m",
+    "schemaVersion": 26,
+    "style": "dark",
+    "tags": [
+        "openfaas"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "Prometheus",
+                    "value": "Prometheus"
+                },
+                "error": null,
+                "hide": 0,
+                "includeAll": false,
+                "label": "Environment",
+                "multi": false,
+                "name": "env",
+                "options": [],
+                "query": "prometheus",
+                "refresh": 1,
+                "regex": ".*",
+                "skipUrlSync": false,
+                "type": "datasource"
+            },
+            {
+                "allValue": "",
+                "current": {
+                    "selected": false,
+                    "text": "figlet.openfaas-fn",
+                    "value": "figlet.openfaas-fn"
+                },
+                "datasource": "$env",
+                "definition": "label_values(gateway_service_count, function_name)",
+                "error": null,
+                "hide": 0,
+                "includeAll": false,
+                "label": "Function",
+                "multi": false,
+                "name": "function",
+                "options": [],
+                "query": "label_values(gateway_service_count, function_name)",
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            }
+        ]
+    },
+    "time": {
+        "from": "now-24h",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ],
+        "time_options": [
+            "5m",
+            "15m",
+            "1h",
+            "6h",
+            "12h",
+            "24h",
+            "2d",
+            "7d",
+            "30d"
+        ]
+    },
+    "timezone": "browser",
+    "title": "OpenFaas",
+    "uid": "4axmz_1Zz",
+    "version": 3
+}

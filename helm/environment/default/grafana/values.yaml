@@ -462,6 +462,9 @@ dashboards:
       gnetId: 4
       revision: 8
       datasource: Prometheus
+    openfaas:
+      # This is a path to a file inside the dashboards directory inside the chart directory
+      file: dashboards/openfaas.json
   #   local-dashboard:
   #     url: https://example.com/repository/test.json
   #   local-dashboard-base64:
