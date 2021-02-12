@@ -15,6 +15,8 @@ repositories:
     url: https://helm.traefik.io/traefik
   - name: openfaas
     url: https://openfaas.github.io/faas-netes
+  - name: jetstack
+    url: https://charts.jetstack.io
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -52,6 +54,10 @@ templates:
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  - name: cert-manager
+    <<: *default
+    chart: jetstack/{{`{{ .Release.Name }}`}}
+    namespace: cert-manager
   - name: external-dns
     <<: *default
     namespace: external-dns
