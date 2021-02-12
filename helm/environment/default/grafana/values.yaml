@@ -463,13 +463,8 @@ dashboards:
       revision: 8
       datasource: Prometheus
     openfaas:
-      # This is a path to a file inside the dashboards directory inside the chart directory
+      datasource: Prometheus
       file: dashboards/openfaas.json
-  #   local-dashboard:
-  #     url: https://example.com/repository/test.json
-  #   local-dashboard-base64:
-  #     url: https://example.com/repository/test-b64.json
-  #     b64content: true
 
 ## Reference to external ConfigMap per provider. Use provider name as key and ConfigMap name as value.
 ## A provider dashboards must be defined either by external ConfigMaps or in values.yaml, not in both.
