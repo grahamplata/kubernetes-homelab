@@ -120,8 +120,8 @@ podPortName: grafana
 ## ref: http://kubernetes.io/docs/user-guide/services/
 ##
 service:
-  type: LoadBalancer
-  port: 80
+  type: NodePort
+  port: 3000
   targetPort:
     3000
     # targetPort: 4181 To be used with a proxy extraContainer

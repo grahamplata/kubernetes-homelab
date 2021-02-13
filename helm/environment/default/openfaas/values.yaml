@@ -1,52 +1,33 @@
 basic_auth: true
 generateBasicAuth: true
-
 clusterRole: false
 createCRDs: true
-
-# See https://www.openfaas.com/support for more
-#
 openfaasPRO: false
-
-# Select ARM based nodes
-### -- Raspberry pi 4
 nodeSelector:
   beta.kubernetes.io/arch: arm
-
 gateway:
   directFunctions: true
-
-# No need yet
 oidcAuthPlugin:
   enabled: false
-
 operator:
   create: false
-
 queueWorker:
   image: openfaas/queue-worker:0.11.2
-
 prometheus:
   image: prom/prometheus:v2.11.0
   resources:
     requests:
       memory: "100Mi"
-
-# Disable alertmanager
 alertmanager:
   create: false
-
 faasIdler:
   replicas: 1
   image: ghcr.io/openfaas/faas-idler-pro:0.5.0
-
 basicAuthPlugin:
   image: openfaas/basic-auth-plugin:0.20.1-armhf
   replicas: 1
-
 ingressOperator:
   create: false
-
 nats:
   metrics:
     enabled: false

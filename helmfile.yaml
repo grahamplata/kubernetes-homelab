@@ -11,10 +11,10 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: traefik
-    url: https://helm.traefik.io/traefik
   - name: openfaas
     url: https://openfaas.github.io/faas-netes
+  - name: jetstack
+    url: https://charts.jetstack.io
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -52,15 +52,15 @@ templates:
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  - name: cert-manager
+    <<: *default
+    chart: jetstack/{{`{{ .Release.Name }}`}}
+    namespace: cert-manager
   - name: external-dns
     <<: *default
     namespace: external-dns
     chart: bitnami/{{`{{ .Release.Name }}`}}
     version: 4.6.0
-  - name: traefik
-    <<: *default
-    chart: traefik/{{`{{ .Release.Name }}`}}
-    version: 9.14.2
   - name: prometheus
     <<: *monitoring
     version: 13.2.1
