@@ -11,8 +11,6 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: traefik
-    url: https://helm.traefik.io/traefik
   - name: openfaas
     url: https://openfaas.github.io/faas-netes
   - name: jetstack
@@ -63,10 +61,6 @@ releases:
     namespace: external-dns
     chart: bitnami/{{`{{ .Release.Name }}`}}
     version: 4.6.0
-  - name: traefik
-    <<: *default
-    chart: traefik/{{`{{ .Release.Name }}`}}
-    version: 9.14.2
   - name: prometheus
     <<: *monitoring
     version: 13.2.1
