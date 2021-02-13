@@ -1,45 +1,24 @@
-## Hardcode the resource names to something human friendly
 nameOverride: external-dns
-
-# Replace in future
-# https://hub.docker.com/r/vchrisb/external-dns/tags?page=1&ordering=last_updated
-# https://github.com/kubernetes-sigs/external-dns/issues/1139
 image:
   registry: docker.io
   repository: vchrisb/external-dns
   tag: v0.5.18
   pullPolicy: IfNotPresent
-
-## Watch these resources for new DNS records
 sources:
   - service
   - ingress
-
-## use google as the dns provider
 provider: google
-
-# Specify the Google project (required when provider=google)
-# You'll need to create this secret containing your credentials.json
 google:
   serviceAccountSecret: external-dns
   serviceAccountSecretKey: "credentials.json"
-
-## List of domains that can be managed. Should be managed by Google Cloud DNS
-domainFilters: ["grahamplata.com"]
-
-# These help tell which records are owned by external-dns.
 registry: "txt"
-txtOwnerId: "k3s"
-
-## Limit external-dns resources
+txtOwnerId: "external-dns"
 resources:
   limits:
     memory: 50Mi
   requests:
     memory: 50Mi
     cpu: 10m
-
-## ensure RBAC is enabled
 rbac:
   create: true
   apiVersion: v1
