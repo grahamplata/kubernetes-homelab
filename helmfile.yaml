@@ -29,7 +29,7 @@ helmDefaults: {}
 # - `{{ .Environment.Name }}` evaluates to "default"
 # - `{{ .Values }}` being empty
 environments:
-  default: {}
+  home: {}
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
