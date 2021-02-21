@@ -15,8 +15,8 @@ repositories:
     url: https://openfaas.github.io/faas-netes
   - name: jetstack
     url: https://charts.jetstack.io
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
+  - name: minecraft
+    url: https://itzg.github.io/minecraft-server-charts
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -49,6 +49,10 @@ templates:
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
     createNamespace: true
     namespace: "monitoring"
+  games: &games
+    <<: *default
+    createNamespace: true
+    namespace: "games"
 
 # The desired states of Helm releases.
 #
@@ -66,3 +70,7 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
+  - name: minecraft
+    <<: *games
+    chart: itzg/{{`{{ .Release.Name }}`}}
+    version: 2.1.5
