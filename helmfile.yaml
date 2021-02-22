@@ -17,6 +17,8 @@ repositories:
     url: https://charts.jetstack.io
   - name: minecraft
     url: https://itzg.github.io/minecraft-server-charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -58,19 +60,24 @@ templates:
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
-  - name: prometheus
-    <<: *monitoring
-    version: 13.2.1
   - name: grafana
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
     version: 6.2.1
+  - name: minecraft
+    <<: *games
+    chart: itzg/{{`{{ .Release.Name }}`}}
+    version: 2.1.5
   - name: openfaas
     <<: *default
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
-  - name: minecraft
-    <<: *games
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 2.1.5
+  - name: prometheus
+    <<: *monitoring
+    version: 13.2.1
+  # - name: unifi
+  #   namespace: unifi
+  #   <<: *default
+  #   chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+  #   version: 1.5.1
