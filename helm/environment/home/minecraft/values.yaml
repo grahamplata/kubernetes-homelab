@@ -1,4 +1,5 @@
 # ref: https://hub.docker.com/r/itzg/minecraft-server/
+# aarch64 for pi 4
 image: itzg/minecraft-server:aarch64
 imageTag: latest
 imagePullSecret: ""
@@ -10,15 +11,6 @@ resources:
   requests:
     memory: 512Mi
     cpu: 500m
-
-# upgrade strategy type (e.g. Recreate or RollingUpdate)
-strategyType: Recreate
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
 
 securityContext:
   # Security context settings
@@ -70,7 +62,7 @@ extraVolumes: []
 
 minecraftServer:
   # This must be overridden, since we can't accept this for the user.
-  eula: "TRUE"
+  eula: "true"
   # One of: LATEST, SNAPSHOT, or a specific version (ie: "1.7.9").
   version: "LATEST"
   # This can be one of "VANILLA", "FORGE", "SPIGOT", "BUKKIT", "PAPER", "FTBA", "SPONGEVANILLA"
@@ -100,9 +92,9 @@ minecraftServer:
   # A server icon URL for server listings. Auto-scaled and transcoded.
   icon:
   # Max connected players.
-  maxPlayers: 20
+  maxPlayers: 10
   # This sets the maximum possible size in blocks, expressed as a radius, that the world border can obtain.
-  maxWorldSize: 10000
+  maxWorldSize: 5000
   # Allows players to travel to the Nether.
   allowNether: true
   # Allows server to announce when a player gets an achievement.
@@ -126,13 +118,13 @@ minecraftServer:
   # Determines if villagers will be spawned.
   spawnNPCs: true
   # Max view distance (in chunks).
-  viewDistance: 10
+  viewDistance: 6
   # Define this if you want a specific map generation seed.
   levelSeed:
   # One of: creative, survival, adventure, spectator
   gameMode: survival
   # Message of the Day
-  motd: "Welcome to Minecraft on Kubernetes!"
+  motd: "Welcome to Minecraft, please wipe your feet."
   # If true, enable player-vs-player damage.
   pvp: false
   # One of: DEFAULT, FLAT, LARGEBIOMES, AMPLIFIED, CUSTOMIZED
@@ -140,7 +132,7 @@ minecraftServer:
   # When levelType == FLAT or CUSTOMIZED, this can be used to further customize map generation.
   # ref: https://hub.docker.com/r/itzg/minecraft-server/
   generatorSettings:
-  worldSaveName: world
+  worldSaveName: k3sWorld
   # If set, this URL will be downloaded at startup and used as a starting point
   downloadWorldUrl:
   # force re-download of server file
