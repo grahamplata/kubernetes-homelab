@@ -1,7 +1,7 @@
 # ref: https://hub.docker.com/r/itzg/minecraft-server/
 # aarch64 for pi 4
-image: itzg/minecraft-server:multiarch
-imageTag: latest
+image: itzg/minecraft-server
+imageTag: multiarch
 imagePullSecret: ""
 
 ## Configure resource requests and limits
