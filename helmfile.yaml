@@ -17,6 +17,8 @@ repositories:
     url: https://charts.jetstack.io
   - name: minecraft
     url: https://itzg.github.io/minecraft-server-charts
+  - name: grahamplata
+    url: https://grahamplata.github.io/charts
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -74,3 +76,7 @@ releases:
     <<: *games
     chart: itzg/{{`{{ .Release.Name }}`}}
     version: 2.1.5
+  - name: quake-kube
+    <<: *games
+    chart: grahamplata/{{`{{ .Release.Name }}`}}
+    version: 0.1.2
