@@ -1,18 +1,22 @@
 basic_auth: true
 generateBasicAuth: true
+
 clusterRole: false
 createCRDs: true
 openfaasPRO: false
+
 nodeSelector:
-  beta.kubernetes.io/arch: arm
+  beta.kubernetes.io/arch: arm64
+
 gateway:
   directFunctions: true
+
 oidcAuthPlugin:
   enabled: false
+
 operator:
   create: false
-queueWorker:
-  image: openfaas/queue-worker:0.11.2
+
 prometheus:
   image: prom/prometheus:v2.11.0
   resources:
@@ -20,14 +24,16 @@ prometheus:
       memory: "100Mi"
 alertmanager:
   create: false
-faasIdler:
-  replicas: 1
-  image: ghcr.io/openfaas/faas-idler-pro:0.5.0
+
 basicAuthPlugin:
   image: openfaas/basic-auth-plugin:0.20.1-armhf
   replicas: 1
+
 ingressOperator:
   create: false
+
 nats:
+  enableMonitoring: false
   metrics:
+    # Should stay off by default because the exporter is not multi-arch (yet)
     enabled: false
