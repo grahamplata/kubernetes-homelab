@@ -16,7 +16,7 @@ quakeServer:
     quadFactor: 3
     weaponRespawn: 3
   server:
-    hostname: "mooncity-quake-kube"
+    hostname: "mooncity-quake3"
     maxClients: 12
   maps:
   - name: q3dm7
