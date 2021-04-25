@@ -9,7 +9,7 @@ quakeServer:
   bot:
     minPlayers: 3
   game:
-    motd: "Welcome to Graham's Quake Server"
+    motd: "Welcome to MoonCity Quake Server"
     type: FreeForAll
     forceRespawn: false
     inactivity: 10m
@@ -38,3 +38,11 @@ quakeServer:
 service:
   type: NodePort
   clientPort: 8080
+  serverPort: 27960
+  contentPort: 9090
+
+persistence:
+  annotations: {}
+  dataDir:
+    enabled: true
+    Size: 1Gi
