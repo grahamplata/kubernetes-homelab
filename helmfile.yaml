@@ -19,6 +19,8 @@ repositories:
     url: https://itzg.github.io/minecraft-server-charts
   - name: grahamplata
     url: https://grahamplata.github.io/charts
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
@@ -46,6 +48,10 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
     secrets:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
+  home-assistant: &home-assistant
+    <<: *default
+    createNamespace: true
+    namespace: "home-assistant"
   monitoring: &monitoring
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
@@ -72,6 +78,10 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
+  - name: home-assistant
+    <<: *home-assistant
+    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+    version: 8.0.0
   - name: minecraft
     <<: *games
     chart: itzg/{{`{{ .Release.Name }}`}}
