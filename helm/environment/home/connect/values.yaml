@@ -1,0 +1,27 @@
+connect:
+  applicationName: onepassword-connect
+  api:
+    name: connect-api
+  sync:
+    name: connect-sync
+  credentials:
+  dataVolume:
+    name: shared-data
+    type: emptyDir
+
+operator:
+  create: true
+  autoRestart: true
+  applicationName: onepassword-connect-operator
+
+  serviceAccount:
+    create: true
+    name: onepassword-connect-operator
+
+  roleBinding:
+    create: true
+    name: onepassword-connect-operator
+
+  clusterRole:
+    create: true
+    name: onepassword-connect-operator

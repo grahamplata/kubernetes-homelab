@@ -19,6 +19,8 @@ repositories:
     url: https://itzg.github.io/minecraft-server-charts
   - name: grahamplata
     url: https://grahamplata.github.io/charts
+  - name: 1password
+    url: https://raw.githubusercontent.com/1Password/connect-helm-charts/main
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
 
@@ -61,11 +63,16 @@ templates:
     <<: *default
     createNamespace: true
     namespace: "games"
+  ops: &ops
+    <<: *default
+    createNamespace: true
+    namespace: "ops"
 
 # The desired states of Helm releases.
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  # Monitoring
   - name: prometheus
     <<: *monitoring
     version: 13.2.1
@@ -78,6 +85,7 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
+  # Games
   - name: home-assistant
     <<: *home-assistant
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
@@ -90,3 +98,8 @@ releases:
     <<: *games
     chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.1.6
+  # Ops
+  - name: connect
+    <<: *ops
+    chart: 1password/{{`{{ .Release.Name }}`}}
+    version: 1.0.1

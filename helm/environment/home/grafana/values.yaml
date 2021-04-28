@@ -460,7 +460,7 @@ dashboards:
       datasource: Prometheus
     kubernetes-capacity:
       gnetId: 5228
-      revision: 8
+      revision: 6
       datasource: Prometheus
     openfaas:
       gnetId: 11202
