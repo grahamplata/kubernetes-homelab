@@ -21,6 +21,8 @@ repositories:
     url: https://grahamplata.github.io/charts
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
 
 # helmDefaults
 # Values to set for args along with dedicated keys that can be set by contributers
