@@ -63,11 +63,24 @@ templates:
     <<: *default
     createNamespace: true
     namespace: "games"
+  ops: &ops
+    <<: *default
+    createNamespace: true
+    namespace: "ops"
+    chart: argo/{{`{{ .Release.Name }}`}}
 
 # The desired states of Helm releases.
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  # ops
+  - name: argo-cd
+    <<: *ops
+    version: 3.2.2
+  - name: argo-events
+    <<: *ops
+    version: 1.3.3
+  # monitorings
   - name: prometheus
     <<: *monitoring
     version: 13.2.1
@@ -75,6 +88,15 @@ releases:
     <<: *monitoring
     chart: grafana/{{`{{ .Release.Name }}`}}
     version: 6.2.1
+  # games
+  - name: minecraft
+    <<: *games
+    chart: itzg/{{`{{ .Release.Name }}`}}
+    version: 2.1.5
+  - name: quake-kube
+    <<: *games
+    chart: grahamplata/{{`{{ .Release.Name }}`}}
+    version: 0.1.6
   - name: openfaas
     <<: *default
     namespace: openfaas
@@ -84,11 +106,3 @@ releases:
     <<: *home-assistant
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
     version: 8.0.0
-  - name: minecraft
-    <<: *games
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 2.1.5
-  - name: quake-kube
-    <<: *games
-    chart: grahamplata/{{`{{ .Release.Name }}`}}
-    version: 0.1.6
