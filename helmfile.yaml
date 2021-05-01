@@ -52,20 +52,16 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
   home-assistant: &home-assistant
     <<: *default
-    createNamespace: true
     namespace: "home-assistant"
   monitoring: &monitoring
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
-    createNamespace: true
     namespace: "monitoring"
   games: &games
     <<: *default
-    createNamespace: true
     namespace: "games"
   ops: &ops
     <<: *default
-    createNamespace: true
     namespace: "ops"
     chart: argo/{{`{{ .Release.Name }}`}}
 
