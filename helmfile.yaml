@@ -50,6 +50,14 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
     secrets:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
+  ops: &ops
+    <<: *default
+    namespace: "ops"
+    chart: argo/{{`{{ .Release.Name }}`}}
+    values:
+      - helm/environment/{{`{{ .Environment.Name }}`}}/ops/{{`{{ .Release.Name }}`}}/values.yaml
+    secrets:
+      - helm/environment/{{`{{ .Environment.Name }}`}}/ops/{{`{{ .Release.Name }}`}}/secrets.yaml
   home-assistant: &home-assistant
     <<: *default
     namespace: "home-assistant"
@@ -60,10 +68,6 @@ templates:
   games: &games
     <<: *default
     namespace: "games"
-  ops: &ops
-    <<: *default
-    namespace: "ops"
-    chart: argo/{{`{{ .Release.Name }}`}}
 
 # The desired states of Helm releases.
 #
@@ -98,7 +102,7 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
-  - name: home-assistant
-    <<: *home-assistant
-    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
-    version: 8.0.0
+  # - name: home-assistant
+  #   <<: *home-assistant
+  #   chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+  #   version: 8.0.0
