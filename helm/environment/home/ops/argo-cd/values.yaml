@@ -9,7 +9,19 @@ installCRDs: true
 
 global:
   image:
-    repository: quay.io/argoproj/argocd
+    # repository: quay.io/argoproj/argocd
+    repository: alinbalutoiu/argocd
+    tag: v2.0.0
+    imagePullPolicy: IfNotPresent
+  securityContext: {}
+  #  runAsUser: 999
+  #  runAsGroup: 999
+  #  fsGroup: 999
+  imagePullSecrets: []
+  hostAliases: []
+  # - ip: 10.20.30.40
+  #   hostnames:
+  #   - git.myhostname
 
 ## Controller
 controller:
@@ -179,7 +191,7 @@ dex:
   name: dex-server
 
   metrics:
-    enabled: false
+    enabled: true
     service:
       annotations: {}
       labels: {}
@@ -187,8 +199,8 @@ dex:
       enabled: false
 
   image:
-    repository: quay.io/dexidp/dex
-    tag: v2.26.0
+    repository: dexidp/dex
+    tag: v2.28.1
     imagePullPolicy: IfNotPresent
   initImage:
     repository:
