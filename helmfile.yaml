@@ -78,10 +78,6 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
-  - name: home-assistant
-    <<: *home-assistant
-    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
-    version: 8.0.0
   - name: minecraft
     <<: *games
     chart: itzg/{{`{{ .Release.Name }}`}}
