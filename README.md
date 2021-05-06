@@ -1,5 +1,7 @@
 # Kubernetes Home Lab
 
+> Currently exploring [fluxcd](https://fluxcd.io/)
+
 - [Kubernetes Home Lab](#kubernetes-home-lab)
   - [Description](#description)
   - [Stack](#stack)
