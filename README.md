@@ -1,6 +1,6 @@
 # Kubernetes Home Lab
 
-> Currently exploring [fluxcd](https://fluxcd.io/)
+> Currently exploring [argo](https://argoproj.github.io/)
 
 - [Kubernetes Home Lab](#kubernetes-home-lab)
   - [Description](#description)
