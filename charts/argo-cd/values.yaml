@@ -3,6 +3,7 @@ argo-cd:
   global:
     image:
       # delete if not pi
+      # https://hub.docker.com/r/alinbalutoiu/argocd/tags?page=1&ordering=last_updated
       repository: alinbalutoiu/argocd
       tag: v2.0.3
   dex:
