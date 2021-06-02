@@ -1,0 +1,11 @@
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    # Using `git` prefix to use a SSH key pair for authentication
+    repoURL: git@github.com:grahamplata/kubernetes-homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
