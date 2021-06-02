@@ -1,15 +1,74 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-# Apply git hooks
-./scripts/sync-hooks
+# Installs required tools
 
-# Install required tools
-./scripts/install
+set -o errexit  # Exit when a command fails.
+set -o pipefail # Exit status of the last command that threw a non-zero exit code is returned.
+set -o nounset  # Exit when your script tries to use undeclared variables
+# set -o xtrace   # Trace what gets executed
 
-cat <<ReadMe
+# Package List
+# Required packages
+# If you think your teammates will find a tool useful create a PR and add it to the list.
+packages=(
+  argocd
+  cfssl
+  direnv
+  jq
+  yq
+  kind
+  kubernetes-cli
+  kustomize
+  helm
+  kubectx
+  sops
+  step
+  shellcheck
+  wget
+)
 
-MOTD:
-  Your Machine is now setup
-    - Make sure to take out the trash
-ReadMe
+# Wrap value with arrow
+msg() {
+  echo "==> $1..."
+}
+
+# A helper that checks if the package exists
+have() {
+  command -v "$@" >/dev/null
+}
+
+# Installs homebrew
+install_homebrew() {
+  which -s brew
+  if [[ $(command -v brew) == "" ]]; then
+    # Install Homebrew
+    msg "Missing homebrew... installing."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  else
+    # Update Homebrew
+    msg "Have homebrew... running update."
+    brew update
+  fi
+}
+# Installs packages using brew
+install_packages() {
+  msg "Installing Commandline Tools"
+  if have brew; then
+    for tool in "${packages[@]}"; do
+      echo "brew install $tool"
+      have "$tool" || brew install "$tool"
+    done
+    msg "Completed installing Commandline Tools"
+    echo
+  fi
+}
+
+main() {
+  # Install homebrew package manager
+  install_homebrew
+  # Install commandline tools
+  install_packages
+  # Install gui tools
+}
+
+main
