@@ -3,7 +3,7 @@ environment: dev
 
 spec:
   source:
-    repoURL: git@github.com:grahamplata/fleet-infra.git
+    repoURL: git@github.com:grahamplata/kubernetes-homelab.git
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

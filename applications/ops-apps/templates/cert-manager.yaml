@@ -11,7 +11,7 @@ spec:
     namespace: ingress-nginx
     server: {{ .Values.spec.destination.server }}
   source:
-    repoURL: git@github.com:grahamplata/fleet-infra.git
+    repoURL: git@github.com:grahamplata/kubernetes-homelab.git
     targetRevision: HEAD
     path: applications/ingress-nginx
     helm:

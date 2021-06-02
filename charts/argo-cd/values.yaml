@@ -20,7 +20,7 @@ argo-cd:
         - type: helm
           name: argo-cd
           url: https://argoproj.github.io/argo-helm
-        - url: git@github.com:grahamplata/fleet-infra.git
+        - url: git@github.com:grahamplata/kubernetes-homelab.git
           sshPrivateKeySecret:
             name: fleet-infra-secret
             key: argocd-github-key
