@@ -1,0 +1,11 @@
+external-dns:
+  provider: google
+
+  ## use google as the dns provider
+  google:
+    project: "graham-dev-297614"
+    serviceAccountSecret: "external-dns"
+
+  ## Watch these resources for new DNS records
+  sources:
+    - service

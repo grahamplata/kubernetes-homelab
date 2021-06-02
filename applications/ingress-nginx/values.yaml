@@ -1,0 +1,4 @@
+nginx-ingress:
+  controller:
+    publishService:
+      enabled: true

@@ -1,0 +1,9 @@
+domain: dev.mooncity.dev
+environment: dev
+
+spec:
+  source:
+    repoURL: git@github.com:grahamplata/fleet-infra.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc

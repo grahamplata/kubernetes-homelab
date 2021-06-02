@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: ops
+    server: {{ .Values.spec.destination.server }}
+  source:
+    repoURL: git@github.com:grahamplata/fleet-infra.git
+    targetRevision: HEAD
+    path: applications/external-dns
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-{{ .Values.environment }}.yaml
+  syncPolicy:
+    automated:
+      prune: true

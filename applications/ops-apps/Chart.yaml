@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ops-apps
+description: App of Apps for cluster operations
+type: application
+version: 0.1.0
+appVersion: "1.16.0"

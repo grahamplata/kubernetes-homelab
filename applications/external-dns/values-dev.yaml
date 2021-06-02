@@ -1,0 +1,5 @@
+external-dns:
+  logLevel: debug
+  domainFilters:
+    - dev.mooncity.dev
+  fqdnTemplates: "{{ .Name }}.dev.mooncity.dev"

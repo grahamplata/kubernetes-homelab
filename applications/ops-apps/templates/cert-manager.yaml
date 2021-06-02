@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: ingress-nginx
+    server: {{ .Values.spec.destination.server }}
+  source:
+    repoURL: git@github.com:grahamplata/fleet-infra.git
+    targetRevision: HEAD
+    path: applications/ingress-nginx
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
