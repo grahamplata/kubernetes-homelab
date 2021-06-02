@@ -1,14 +1,15 @@
 argo-cd:
-  installCRDs: false
+  installCRDs: true
   global:
     image:
-      tag: v1.8.1
+      tag: v2.0.3
   dex:
     enabled: false
   server:
     extraArgs:
       - --insecure
     config:
+      kustomize.buildOptions: "--enable-alpha-plugins"
       repositories: |
         - type: helm
           name: stable
@@ -16,3 +17,43 @@ argo-cd:
         - type: helm
           name: argo-cd
           url: https://argoproj.github.io/argo-helm
+        - url: git@github.com:grahamplata/fleet-infra.git
+          sshPrivateKeySecret:
+            name: fleet-infra-secret
+            key: argocd-github-key
+        - url: https://charts.bitnami.com/bitnami
+          name: bitnami
+          type: helm
+  repoServer:
+    # Set the XDG_CONFIG_HOME env variable to allow kustomize to detect the plugin
+    env:
+      - name: XDG_CONFIG_HOME
+        value: /.config
+
+    # Use init containers to configure custom tooling
+    # https://argoproj.github.io/argo-cd/operator-manual/custom_tools/
+    volumes:
+      - name: custom-tools
+        emptyDir: {}
+
+    initContainers:
+      - name: install-ksops
+        image: viaductoss/ksops:v2.5.5
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo "Installing KSOPS...";
+            export PKG_NAME=ksops;
+            mv ${PKG_NAME}.so /custom-tools/;
+            mv $GOPATH/bin/kustomize /custom-tools/;
+            echo "Done.";
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+    volumeMounts:
+      - mountPath: /usr/local/bin/kustomize
+        name: custom-tools
+        subPath: kustomize
+        # Verify this matches a XDG_CONFIG_HOME=/.config env variable
+      - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops.so
+        name: custom-tools
+        subPath: ksops.so
