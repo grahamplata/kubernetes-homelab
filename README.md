@@ -4,12 +4,22 @@
 
 - [Kubernetes Home Lab](#kubernetes-home-lab)
   - [Description](#description)
+  - [Node Setup](#node-setup)
   - [Stack](#stack)
   - [Bill of Materials](#bill-of-materials)
 
 ## Description
 
 My Kubernetes homelab configuration.
+
+## Node Setup
+
+- Download [Balena Etcher](https://www.balena.io/etcher/) ~ `brew install --cask balenaetcher`
+- Grab Ubuntu Server for arm64 ~ `wget https://cdimage.ubuntu.com/releases/20.04.2/release/ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz`
+- Create an empty file named `ssh` in the boot partition to enable ssh.
+- Add the following to the end of the line in `/boot/cmdline.txt` ~ ` cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory`
+- Find the RPi IP with `ping -c raspberrypi.local` default config
+- Copy over your ssh key with: `ssh-copy-id pi@raspberrypi.local`
 
 ## Stack
 
@@ -30,6 +40,6 @@ My Kubernetes homelab configuration.
 | [USB A to Type C Cables](https://www.amazon.com/gp/product/B08G1HS6SL/ref=ppx_yo_dt_b_asin_title_o00_s01?ie=UTF8&psc=1)                | Text        |        2 |       9.99 |      $19.98 |
 | [5-Pack Snagless Short Cat6](https://www.amazon.com/gp/product/B00C4U030G/ref=ppx_yo_dt_b_asin_title_o00_s01?ie=UTF8&psc=1)            | Text        |        1 |      11.49 |      $11.49 |
 | [D-Link 8 Port Gigabit Ethernet Switch](https://www.amazon.com/gp/product/B00C4U030G/ref=ppx_yo_dt_b_asin_title_o00_s01?ie=UTF8&psc=1) | Text        |        1 |      31.22 |      $31.22 |
-| **Total**                                    *Taxes not applied*                                                                       |             |          |            | **$381.57** |
+| **Total** _Taxes not applied_                                                                                                          |             |          |            | **$381.57** |
 
 > Something I would consider upgrading would be a PoE switch coupled with the RaspberryPi PoE hats. This would eliminate the need for the need for extra cabling as well as make expanding nodes easier.
