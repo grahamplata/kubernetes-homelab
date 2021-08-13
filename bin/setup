@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # Apply git hooks
-./scripts/sync-hooks
+./bin/sync-hooks
 
 # Install required tools
-./scripts/install
+./bin/install
 
 cat <<ReadMe
 

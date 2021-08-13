@@ -4,7 +4,7 @@
 # Sync active hook scripts to the appropriate directory.
 main() {
     cd "$(git rev-parse --show-toplevel)" || return
-    sync_hooks "$PWD/scripts/git-hooks" "$(git rev-parse --git-dir | sed 's;/worktrees/.*;;')/hooks"
+    sync_hooks "$PWD/bin/git-hooks" "$(git rev-parse --git-dir | sed 's;/worktrees/.*;;')/hooks"
 }
 
 ##
