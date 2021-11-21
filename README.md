@@ -4,6 +4,7 @@
 
 - [Kubernetes Home Lab](#kubernetes-home-lab)
   - [Description](#description)
+  - [Commands](#commands)
   - [Node Setup](#node-setup)
   - [Stack](#stack)
   - [Bill of Materials](#bill-of-materials)
@@ -11,6 +12,19 @@
 ## Description
 
 My Kubernetes homelab configuration.
+
+## Commands
+
+```bash
+# Diff release
+helmfile -e home diff
+
+# Sync release
+helmfile -e home sync
+
+# Target release
+helmfile -e home --selector=name=openfaas sync
+```
 
 ## Node Setup
 
