@@ -1,7 +1,5 @@
 # Kubernetes Home Lab
 
-> Currently exploring [argo](https://argoproj.github.io/)
-
 - [Kubernetes Home Lab](#kubernetes-home-lab)
   - [Description](#description)
   - [Commands](#commands)
