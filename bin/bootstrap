@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Server Node
+SERVER_IP=192.168.6.42
+USER=ubuntu
+CONTEXT=my-k3s
+
+# Agent Nodes
+agents=(
+    192.168.6.41
+    192.168.6.43
+    192.168.6.44
+)
+
+# Install k3sup binary
+install_k3sup() {
+    echo "--- Installing k3sup"
+    curl -sLS https://get.k3sup.dev | sh
+    sudo install k3sup /usr/local/bin/
+    echo "--- Done"
+}
+
+# Bootstrap Server
+bootstrap_server() {
+    echo "--- Bootstrap Server"
+    k3sup install \
+        --ip $SERVER_IP \
+        --user $USER \
+        --merge \
+        --local-path "$HOME"/.kube/config \
+        --context "$CONTEXT"
+    echo "--- Done"
+}
+
+# Bootstrap Nodes
+bootstrap_agents() {
+    echo "--- Bootstrap Agents"
+    for agent in "${agents[@]}"; do
+        echo "  --- Starting $agent"
+        k3sup join --ip "$agent" --server-ip "$SERVER_IP" --user "$USER"
+    done
+    echo "--- Done"
+}
+
+# have helper command
+have() {
+    command -v "$@" >/dev/null
+}
+
+# main
+main() {
+    have k3sup || install_k3sup
+    bootstrap_server
+    bootstrap_agents
+}
+
+# Execute
+main
