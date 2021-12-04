@@ -1,2 +1,7 @@
 *.dec
 .envrc
+.env
+bin/
+.idea/
+.terraform/
+tfplan
