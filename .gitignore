@@ -5,3 +5,6 @@ bin/
 .idea/
 .terraform/
 tfplan
+.tfvars
+terraform.tfstate
+terraform.tfstate.backup
