@@ -61,11 +61,19 @@ templates:
     <<: *default
     createNamespace: true
     namespace: "games"
+  cert-manager: &cert-manager
+    <<: *default
+    chart: jetstack/{{`{{ .Release.Name }}`}}
+    createNamespace: true
+    namespace: "cert-manager"
 
 # The desired states of Helm releases.
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  - name: cert-manager
+    <<: *cert-manager
+    version: v1.6.1
   - name: prometheus
     <<: *monitoring
     version: 13.2.1
@@ -78,11 +86,11 @@ releases:
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
     version: 7.0.4
-  - name: minecraft
-    <<: *games
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 2.1.5
   - name: quake-kube
     <<: *games
     chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.1.6
+  # - name: minecraft
+  #   <<: *games
+  #   chart: itzg/{{`{{ .Release.Name }}`}}
+  #   version: 2.1.5

@@ -1,0 +1,21 @@
+{
+	"data": "ENC[AES256_GCM,data:yNmzwQ/VdWDABRAxZsOJojAp0GZgL0mrXEY3OMAxHCS9TMy9uWIiGetx7It7Y85E6/sV6YOR80onpljOPs41SLh3Gw1OanjhHg5Lt8p4yq6eLm0SCkxfacqQoa9i8+yV7OocKPxvbyzmtVkZuXBZNR3T0l8mT9zzzL41u5WvEkCEmjQ0EE497wke9kVCpv50ED9bzoAHaO8aO3C+cfEjEGuZGF7xQDxd9cMwVdv+QigVSUoEnO8EpyHwWzYIf42V5xuAXZWxJsq5MvgJRfxA5wm+CWemnrIBT+ZXzGzwFexqEQHtYZo1NF59tA2ECGL4ILrwm0Qjdu5BAuKqbv9Yr5EKrYJ3H8lMSLO0c5F/bTu2g0E0EPN3ubH7DSaNhbtTXRQUVu1eF0QKzBX67t7/BsTQKSSU2jhaPkdvwG153O2BBeiyO2aBC+Gg/deLiCL0ZA==,iv:iyM8GLrtTVMnbWFYiK3VL1oGl58KZqtEAr+jd2c6efA=,tag:tHYmDMPCCOVIlCFciyN13A==,type:str]",
+	"sops": {
+		"kms": null,
+		"gcp_kms": null,
+		"azure_kv": null,
+		"hc_vault": null,
+		"age": null,
+		"lastmodified": "2021-12-04T21:46:35Z",
+		"mac": "ENC[AES256_GCM,data:BnYzWxizJ+BWW8nkKPVxnKYtk/lOPUsOjFNeu6AiS/lQOJRK2wmv56BaEnlDRFjMsup1Cf8Cj2qk2N17LSLwIU7pIB4YrBOcdeCp+iC995l49kQa8BReZaGtlJgiluWZ/7iPJEzCsWdI2zoRf7Z7hrJtYK93qDmT9lEv5MrsbAY=,iv:BhH8OpB9Q0IrCIk/67zFEkRlwNBoboT8r5ZSZ6fwxNs=,tag:kMkU07Z62IaTcKkOO144AA==,type:str]",
+		"pgp": [
+			{
+				"created_at": "2021-12-04T21:46:35Z",
+				"enc": "-----BEGIN PGP MESSAGE-----\n\nwcFMA/NKTSBqvTB6ARAAUxdibnlqR6cCPCBgeAiCH0Cz8SWer6LNtDTDrCn3Q8EM\nSNPy/YG81GMFFye4egFgpJ3PX7ohcZ68GbgmZmk5R5E4Bld1TxvyI33cUKZatyOc\nUCuCOVi8c1dCGAlgIHlSzmvlrPM6OmieZcvgUOWQpKxjOQNy+UIDie+r3QNTwVM4\nhwDs+tX2VHgXxAGOmN2mnMtsRQzvffwdd/c0DP05xprEf0yToyebxg+3h+WiT99j\n0ZE5VFZsfo2iLTnJiO8d6RwepBtHjsRokeoqZrpML0jru2J9OfLebVYjwProVwF7\nIj0g+QQQyTwybobSd+8GDsvlUfRpA8rjKTAtEe/80sGdMU3AwQHAQS5koVxFq55F\nlsnefRmbHzWzL3jZemeZH/t1Hq+LwShfpO7RaADD0RBIiUWePcEj8qbsYmbzjMpA\nn2dSCxhqtdxpUW55Ngb1slTNx2opOlG8Xcuxa9ERDhVHugUcQNYGclAgAx4DbRjt\nUXG7X+U8KKZaLSm0t5Qs3TKVHqRIpxpAxnzp+IDsCEk0lZr/d1NSrP4qQX5mtB5L\ndxVQeEsL81af2lNFXosSvuc3EJnlkvG/gRtnHMuEOZdbw46UFmAiy9Uqc1NmcrnZ\nSRaZDgbY04yJQK0xSz/aq+eWa0NXZ1PDaJQ1ja+HGCS21N0cbTmBsdJ2kcpdwPnS\n5gGNbXHuqnsdHdRuAk/JXqB82lB9hjAqTmpPCfDfI/+tSdPiX6uMZNHNFbisM530\noQh4kB6M4duvhRUl3BuGFP3krwaUrH2tBmaEobC7jHV0heKWXJ8bAA==\n=OAiQ\n-----END PGP MESSAGE-----",
+				"fp": "BC8DF74B855D6575ED4878E8962D032461639065"
+			}
+		],
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.7.1"
+	}
+}
