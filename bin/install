@@ -8,6 +8,8 @@ tools=(
     helmfile
     sops
     pv
+    terraform
+    chtf
 )
 
 main() {
