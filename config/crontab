@@ -1,0 +1,38 @@
+#--------------------------------------------------
+# unix/linux crontab file format:
+#--------------------------------------------------
+# min,hour,dayOfMonth,month,dayOfWeek command
+#
+# field          allowed values
+# -----          --------------
+# minute         0-59
+# hour           0-23
+# day of month   1-31
+# month          1-12 (or names, see below)
+# day of week    0-7 (0 or 7 is Sun, or use names)
+#
+#--------------------------------------------------
+# 
+# 
+# Node crontab config
+
+# Proactively avoid invalid capacity issues by deleting unused container images
+# “At 00:00.” daily
+@daily sudo k3s crictl rmi --prune
+
+# Clear logs greater than a day
+# “At 00:00.” daily
+@daily sudo journalctl --vacuum-time=1d
+
+# Clear logs
+# “At 00:00.” daily
+@daily sudo find /var/log -type f -regex ".*\.gz$" -delete
+@daily sudo find /var/log -type f -regex ".*\.[0-9]$" -delete
+
+# Clear temporary files that have not been accessed in 3 days
+# “At 00:00.” daily
+@daily sudo find /tmp -type f -atime +3 -delete
+
+# Upgrade packages monthly
+# “At 00:00 on day-of-month 1.”
+@monthly sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
