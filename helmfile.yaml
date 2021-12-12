@@ -90,7 +90,7 @@ releases:
     <<: *games
     chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.1.6
-  # - name: minecraft
-  #   <<: *games
-  #   chart: itzg/{{`{{ .Release.Name }}`}}
-  #   version: 2.1.5
+  - name: minecraft
+    <<: *games
+    chart: itzg/{{`{{ .Release.Name }}`}}
+    version: 3.6.1

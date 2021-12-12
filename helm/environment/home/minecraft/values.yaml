@@ -1,71 +1,19 @@
 # ref: https://hub.docker.com/r/itzg/minecraft-server/
-# aarch64 for pi 4
 image: itzg/minecraft-server
-imageTag: multiarch
+imageTag: latest
 imagePullSecret: ""
 
-## Configure resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
 resources:
   requests:
     memory: 512Mi
     cpu: 500m
 
-securityContext:
-  # Security context settings
-  runAsUser: 1000
-  fsGroup: 2000
-# Most of these map to environment variables. See Minecraft for details:
-# https://hub.docker.com/r/itzg/minecraft-server/
-livenessProbe:
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  failureThreshold: 10
-  successThreshold: 1
-  timeoutSeconds: 1
-readinessProbe:
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  failureThreshold: 10
-  successThreshold: 1
-  timeoutSeconds: 1
-startupProbe:
-  enabled: false
-  failureThreshold: 30
-  periodSeconds: 10
-
-# initContainers:
-#   - name: do-something
-#     image: busybox
-#     command: ['do', 'something']
-#     volumesMounts:
-#       - name: nfs
-#         mountPath: /mnt/volume
-#         readOnly: true
-initContainers: []
-
-# extraVolumes:
-#   - volumeMounts:
-#       - name: nfs
-#         mountPath: /mnt/volume
-#         readOnly: true
-#     volumes:
-#       - name: nfs
-#         server: some.nfs.server.com
-#         path: /
-#         mountOptions:
-#           - port=2049
-#           - hard
-#           - vers=4
-extraVolumes: []
-
 minecraftServer:
   # This must be overridden, since we can't accept this for the user.
-  eula: "true"
+  eula: "TRUE"
   # One of: LATEST, SNAPSHOT, or a specific version (ie: "1.7.9").
   version: "LATEST"
-  # This can be one of "VANILLA", "FORGE", "SPIGOT", "BUKKIT", "PAPER", "FTBA", "SPONGEVANILLA"
+  # This can be one of "VANILLA", "FORGE", "SPIGOT", "BUKKIT", "PAPER", "FTBA", "SPONGEVANILLA", "CURSEFORGE"
   type: "VANILLA"
   # If type is set to FORGE, this sets the version; this is ignored if forgeInstallerUrl is set
   forgeVersion:
@@ -81,10 +29,12 @@ minecraftServer:
   paperDownloadUrl:
   # If type is set to FTB, this sets the server mod to run. You can also provide the URL to download the FTB package
   ftbServerMod:
+  # If type is set to CURSEFORGE, this sets the server mod to run. Can also provide url to curseforge package.
+  cfServerMod:
   # Set to true if running Feed The Beast and get an error like "unable to launch forgemodloader"
   ftbLegacyJavaFixer: false
   # One of: peaceful, easy, normal, and hard
-  difficulty: hard
+  difficulty: easy
   # A comma-separated list of player names to whitelist.
   whitelist:
   # A comma-separated list of player names who should be admins.
@@ -92,9 +42,9 @@ minecraftServer:
   # A server icon URL for server listings. Auto-scaled and transcoded.
   icon:
   # Max connected players.
-  maxPlayers: 10
+  maxPlayers: 20
   # This sets the maximum possible size in blocks, expressed as a radius, that the world border can obtain.
-  maxWorldSize: 5000
+  maxWorldSize: 10000
   # Allows players to travel to the Nether.
   allowNether: true
   # Allows server to announce when a player gets an achievement.
@@ -118,13 +68,13 @@ minecraftServer:
   # Determines if villagers will be spawned.
   spawnNPCs: true
   # Max view distance (in chunks).
-  viewDistance: 6
+  viewDistance: 10
   # Define this if you want a specific map generation seed.
   levelSeed:
   # One of: creative, survival, adventure, spectator
   gameMode: survival
   # Message of the Day
-  motd: "Welcome to Minecraft, please wipe your feet."
+  motd: "Welcome to Minecraft on Kubernetes!"
   # If true, enable player-vs-player damage.
   pvp: false
   # One of: DEFAULT, FLAT, LARGEBIOMES, AMPLIFIED, CUSTOMIZED
@@ -132,7 +82,7 @@ minecraftServer:
   # When levelType == FLAT or CUSTOMIZED, this can be used to further customize map generation.
   # ref: https://hub.docker.com/r/itzg/minecraft-server/
   generatorSettings:
-  worldSaveName: k3sWorld
+  worldSaveName: world
   # If set, this URL will be downloaded at startup and used as a starting point
   downloadWorldUrl:
   # force re-download of server file
@@ -153,7 +103,9 @@ minecraftServer:
   serviceAnnotations: {}
   serviceType: ClusterIP
   ## Set the port used if the serviceType is NodePort
-  # nodePort:
+  nodePort:
+  # Set the external port of the service, usefull when using the LoadBalancer service type
+  servicePort: 25565
   loadBalancerIP:
   # loadBalancerSourceRanges: []
   ## Set the externalTrafficPolicy in the Service to either Cluster or Local
@@ -163,69 +115,42 @@ minecraftServer:
   rcon:
     # If you enable this, make SURE to change your password below.
     port: 25575
-    serviceType: LoadBalancer
+    existingSecret:
+    secretKey: rcon-password
+    serviceType: ClusterIP
+    ## Set the external port if the rcon serviceType is NodePort
+    nodePort:
     loadBalancerIP:
     # loadBalancerSourceRanges: []
     ## Set the externalTrafficPolicy in the Service to either Cluster or Local
     # externalTrafficPolicy: Cluster
 
-  dynmap:
-    # Enabling any of these options will not install dynmap to your server, but
-    # opens up a service and possibly an ingress to access dynmap on your server.
-    # To install dynmap, see downloadModpackUrl
-
-    containerPort: 8123
-    service:
-      # Enable a service for dynmap
-      enabled: false
-      annotations: {}
-      type: ClusterIP
-      loadBalancerIP: ""
-      loadBalancerSourceRanges: []
-      # externalTrafficPolicy: Cluster
-      port: 8123
-    ingress:
-      enabled: false
-      annotations:
-        {}
-        # kubernetes.io/ingress.class: nginx
-        # kubernetes.io/tls-acme: "true"
-      hosts:
-        - name: dynmap.local
-          path: /
-      tls: []
-      #  - secretName: dynmap-tls
-      #    hosts:
-      #      - dynmap.local
+    # These options allow you to expose another port from the Minecraft server, plugins such
+    # as dynmap (8123) and bluemap (8100) will require this for access to their web interfaces
+    #
+    # - name: map
+    #   containerPort: 8123
+    #   protocol: TCP
+    #   service:
+    #     enabled: false
+    #     embedded: false
+    #     annotations: {}
+    #     type: ClusterIP
+    #     loadBalancerIP: ""
+    #     loadBalancerSourceRanges: []
+    #     externalTrafficPolicy: Cluster
+    #     port: 8123
+    #   ingress:
+    #     ingressClassName: nginx
+    #     enabled: false
+    #     annotations:
 
   query:
-    # If you enable this, your server will be "published" to Gamespy
     enabled: false
     port: 25565
 
-## Additional minecraft container environment variables
-##
-extraEnv: {}
-
 persistence:
-  ## minecraft data Persistent Volume Storage Class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  # storageClass: "-"
+  annotations: {}
   dataDir:
-    # Set this to false if you don't care to persist state between restarts.
-    enabled: false
-    # existingClaim: nil
+    enabled: true
     Size: 1Gi
-
-podAnnotations: {}
-
-deploymentAnnotations: {}
-
-serviceAnnotations: {}
-
-rconServiceAnnotations: {}
