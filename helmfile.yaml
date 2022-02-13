@@ -85,7 +85,7 @@ releases:
     <<: *default
     namespace: openfaas
     chart: openfaas/{{`{{ .Release.Name }}`}}
-    version: 7.0.4
+    version: 10.0.8
   - name: quake-kube
     <<: *games
     chart: grahamplata/{{`{{ .Release.Name }}`}}
@@ -93,4 +93,4 @@ releases:
   - name: minecraft
     <<: *games
     chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 3.6.1
+    version: 3.8.0
