@@ -15,9 +15,9 @@ spec:
     - host: grafana.homelab.mooncity.dev
       http:
         paths:
-         - pathType: Prefix
-           path: /
-           backend:
+          - pathType: Prefix
+            path: /
+            backend:
               service:
                 name: grafana
                 port:
