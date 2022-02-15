@@ -4,21 +4,21 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: cloudflare-issuer
-  name: grafana-ingress
-  namespace: monitoring
+  name: home-assistant
+  namespace: home-assistant
 spec:
   tls:
     - hosts:
-        - grafana.homelab.mooncity.dev
-      secretName: grafana-tls
+        - home.homelab.mooncity.dev
+      secretName: home-tls
   rules:
-    - host: grafana.homelab.mooncity.dev
+    - host: home.homelab.mooncity.dev
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: grafana
+                name: home-assistant
                 port:
-                  number: 3000
+                  number: 8123

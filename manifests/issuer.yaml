@@ -12,6 +12,6 @@ spec:
       - dns01:
           cloudflare:
             email: graham.plata@gmail.com
-            apiTokenSecretRef:
+            apiKeySecretRef:
               name: cloudflare-api-token-secret
-              key: api-token
+              key: api-key
