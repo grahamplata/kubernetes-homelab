@@ -94,3 +94,7 @@ releases:
     <<: *games
     chart: itzg/{{`{{ .Release.Name }}`}}
     version: 3.8.0
+  - name: home-assistant
+    <<: *home-assistant
+    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+    version: 12.0.1
