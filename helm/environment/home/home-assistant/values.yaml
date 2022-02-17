@@ -1,14 +1,24 @@
 image:
   repository: homeassistant/home-assistant
-  pullPolicy: IfNotPresent
-  tag: 2021.4.4
+  tag: 2022.2.5
 
-strategy:
-  type: Recreate
-
-service:
-  port:
-    port: 8123
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - k3s-server-1
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: app
+              operator: In
+              values:
+                - zigbee-controller
 
 prometheus:
   serviceMonitor:
@@ -17,5 +27,35 @@ prometheus:
 persistence:
   config:
     enabled: true
-    emptyDir:
-      enabled: false
+  usb0:
+    enabled: true
+    type: hostPath
+    hostPath: /dev/ttyUSB0
+  usb1:
+    enabled: true
+    type: hostPath
+    hostPath: /dev/ttyUSB1
+
+# -- Enable devices to be discoverable
+hostNetwork: true
+
+# Privileged securityContext may be required if USB devics are accessed directly through the host machine
+securityContext:
+  privileged: true
+
+http:
+  server_host: 0.0.0.0
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    # Pod CIDR
+    - 10.69.0.0/16
+    - 10.42.3.0/24
+    - 10.42.2.0/24
+    - 10.42.1.0/24
+    - 10.42.0.0/24
+    # Node CIDR
+    - 192.168.6.0/24
+    # tailscale
+    - 100.64.0.0/10
