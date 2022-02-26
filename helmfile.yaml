@@ -98,3 +98,7 @@ releases:
     <<: *home-assistant
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
     version: 12.0.1
+  # Orphaned resources
+  - name: raw
+    <<: *default
+    chart: "./charts/{{`{{ .Release.Name }}`}}"
