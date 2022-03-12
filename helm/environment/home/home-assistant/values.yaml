@@ -1,6 +1,6 @@
 image:
   repository: homeassistant/home-assistant
-  tag: 2022.2.5
+  tag: 2022.3.2
 
 affinity:
   nodeAffinity:
@@ -59,3 +59,7 @@ http:
     - 192.168.6.0/24
     # tailscale
     - 100.64.0.0/10
+    # Other
+    - 10.0.0.0/8
+    - 127.0.0.1
+    - ::1
