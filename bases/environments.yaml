@@ -7,3 +7,6 @@
 # - `{{ .Values }}` being empty
 environments:
   home: {}
+  civo: {}
+  gcp: {}
+  kind: {}
