@@ -1,39 +1,9 @@
-# Chart repositories used from within this state file
-#
-# Use `helm-s3` and `helm-git` and whatever Helm Downloader plugins
-# to use repositories other than the official repository or one backend by chartmuseum.
-repositories:
-  - name: stable
-    url: https://charts.helm.sh/stable
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
-  - name: grafana
-    url: https://grafana.github.io/helm-charts
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
-  - name: openfaas
-    url: https://openfaas.github.io/faas-netes
-  - name: jetstack
-    url: https://charts.jetstack.io
-  - name: minecraft
-    url: https://itzg.github.io/minecraft-server-charts
-  - name: grahamplata
-    url: https://grahamplata.github.io/charts
-  - name: k8s-at-home
-    url: https://k8s-at-home.com/charts/
+# Base helmfile
 
-# helmDefaults
-# Values to set for args along with dedicated keys that can be set by contributers
-helmDefaults: {}
-
-# The list of environments managed by helmfile.
-#
-# The default is `environments: {"default": {}}` which implies:
-#
-# - `{{ .Environment.Name }}` evaluates to "default"
-# - `{{ .Values }}` being empty
-environments:
-  home: {}
+bases:
+  - "bases/repositories.yaml"
+  - "bases/helmDefaults.yaml"
+  - "bases/environments.yaml"
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
@@ -71,6 +41,10 @@ templates:
 #
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  - name: raw
+    <<: *default
+    chart: grahamplata/{{`{{ .Release.Name }}`}}
+    version: 0.2.3
   - name: cert-manager
     <<: *cert-manager
     version: v1.6.1

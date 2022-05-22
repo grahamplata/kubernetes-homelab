@@ -1,0 +1,11 @@
+---
+# helmDefaults
+# Values to set for args along with dedicated keys that can be set by contributers
+helmDefaults:
+  atomic: true
+  cleanupOnFail: false
+  wait: true
+  # 15min timeout
+  timeout: 900
+  # Do not recreate pods during upgrade when not required
+  recreatePods: false
