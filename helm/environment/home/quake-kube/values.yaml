@@ -1,5 +1,5 @@
 prometheus:
-  enabled: true
+  enabled: false
 
 quakeServer:
   eula: true

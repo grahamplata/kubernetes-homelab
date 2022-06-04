@@ -22,7 +22,7 @@ affinity:
 
 prometheus:
   serviceMonitor:
-    enabled: true
+    enabled: false
 
 persistence:
   config:

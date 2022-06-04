@@ -20,21 +20,13 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
   home-assistant: &home-assistant
     <<: *default
-    createNamespace: true
     namespace: "home-assistant"
-  monitoring: &monitoring
-    <<: *default
-    chart: prometheus-community/{{`{{ .Release.Name }}`}}
-    createNamespace: true
-    namespace: "monitoring"
   games: &games
     <<: *default
-    createNamespace: true
     namespace: "games"
   cert-manager: &cert-manager
     <<: *default
     chart: jetstack/{{`{{ .Release.Name }}`}}
-    createNamespace: true
     namespace: "cert-manager"
 
 # The desired states of Helm releases.
@@ -48,26 +40,10 @@ releases:
   - name: cert-manager
     <<: *cert-manager
     version: v1.6.1
-  - name: prometheus
-    <<: *monitoring
-    version: 13.2.1
-  - name: grafana
-    <<: *monitoring
-    chart: grafana/{{`{{ .Release.Name }}`}}
-    version: 6.2.1
-  - name: openfaas
-    <<: *default
-    namespace: openfaas
-    chart: openfaas/{{`{{ .Release.Name }}`}}
-    version: 10.0.8
   - name: quake-kube
     <<: *games
     chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.1.6
-  - name: minecraft
-    <<: *games
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 3.8.0
   - name: home-assistant
     <<: *home-assistant
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
