@@ -1,6 +1,6 @@
 image:
   repository: homeassistant/home-assistant
-  tag: 2022.3.2
+  tag: 2022.7.4
 
 affinity:
   nodeAffinity:
@@ -20,6 +20,47 @@ affinity:
               values:
                 - zigbee-controller
 
+ingress:
+  main:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      kubernetes.io/ingress.class: "nginx"
+    tls:
+      - hosts:
+          - home.mooncity.dev
+          - code.mooncity.dev
+        secretName: home-tls
+    hosts:
+      - host: home.mooncity.dev
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  number: 8123
+      - host: code.mooncity.dev
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: home-assistant-codeserver
+                  port:
+                    number: 12321
+
+env:
+  TZ: "America/New York"
+
+service:
+  main:
+    ports:
+      http:
+        port: 8123
+
 prometheus:
   serviceMonitor:
     enabled: false
@@ -36,30 +77,17 @@ persistence:
     type: hostPath
     hostPath: /dev/ttyUSB1
 
-# -- Enable devices to be discoverable
-hostNetwork: true
-
-# Privileged securityContext may be required if USB devics are accessed directly through the host machine
 securityContext:
   privileged: true
 
-http:
-  server_host: 0.0.0.0
-  ip_ban_enabled: true
-  login_attempts_threshold: 5
-  use_x_forwarded_for: true
-  trusted_proxies:
-    # Pod CIDR
-    - 10.69.0.0/16
-    - 10.42.3.0/24
-    - 10.42.2.0/24
-    - 10.42.1.0/24
-    - 10.42.0.0/24
-    # Node CIDR
-    - 192.168.6.0/24
-    # tailscale
-    - 100.64.0.0/10
-    # Other
-    - 10.0.0.0/8
-    - 127.0.0.1
-    - ::1
+addons:
+  codeserver:
+    enabled: true
+    args:
+      - --auth
+      - none
+      - --user-data-dir
+      - /data/config/.vscode
+    volumeMounts:
+      - name: config
+        mountPath: /data/config
