@@ -1,8 +1,11 @@
+# Environment vars
 *.dec
 .envrc
 .env
 bin/
 .idea/
+
+# Terraform
 .terraform/
 tfplan
 .tfvars
