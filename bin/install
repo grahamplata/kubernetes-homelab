@@ -10,6 +10,7 @@ tools=(
     pv
     terraform
     chtf
+    go-task/tap/go-task
 )
 
 main() {

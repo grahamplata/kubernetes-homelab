@@ -1,0 +1,13 @@
+version: '3'
+
+# Global environment variables
+env:
+  DEFAULT: "Take out the trash!"
+
+# Global include .env
+dotenv: ['.env']
+
+tasks:
+  default:
+    cmds:
+      - echo $DEFAULT
