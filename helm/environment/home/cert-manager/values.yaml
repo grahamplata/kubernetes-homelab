@@ -2,18 +2,15 @@ installCRDs: true
 
 replicaCount: 1
 
-ingressShim:
-  {}
-  # defaultIssuerName: ""
-  # defaultIssuerKind: ""
-  # defaultIssuerGroup: ""
+ingressShim: {}
 
 prometheus:
-  enabled: true
+  enabled: false
 
 webhook:
   replicaCount: 1
   timeoutSeconds: 10
+  securePort: 10251
 
 cainjector:
   enabled: true

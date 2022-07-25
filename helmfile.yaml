@@ -1,5 +1,5 @@
 # Base helmfile
-
+#
 bases:
   - "bases/repositories.yaml"
   - "bases/helmDefaults.yaml"
@@ -7,6 +7,7 @@ bases:
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
+#
 templates:
   default: &default
     chart: stable/{{`{{ .Release.Name }}`}}
@@ -20,55 +21,54 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
   home-assistant: &home-assistant
     <<: *default
-    createNamespace: true
     namespace: "home-assistant"
-  monitoring: &monitoring
+    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+  grahamplata: &grahamplata
     <<: *default
-    chart: prometheus-community/{{`{{ .Release.Name }}`}}
-    createNamespace: true
-    namespace: "monitoring"
-  games: &games
-    <<: *default
-    createNamespace: true
-    namespace: "games"
+    chart: grahamplata/{{`{{ .Release.Name }}`}}
   cert-manager: &cert-manager
     <<: *default
     chart: jetstack/{{`{{ .Release.Name }}`}}
-    createNamespace: true
     namespace: "cert-manager"
+  prometheus: &prometheus
+    <<: *default
+    chart: prometheus-community/{{`{{ .Release.Name }}`}}
+    namespace: "prometheus"
+  ingress-nginx: &ingress-nginx
+    <<: *default
+    chart: ingress-nginx/{{`{{ .Release.Name }}`}}
+    namespace: "ingress-nginx"
 
 # The desired states of Helm releases.
-#
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
+#
 releases:
+  # Misc
   - name: raw
-    <<: *default
-    chart: grahamplata/{{`{{ .Release.Name }}`}}
+    <<: *grahamplata
     version: 0.2.3
-  - name: cert-manager
-    <<: *cert-manager
-    version: v1.6.1
-  - name: prometheus
-    <<: *monitoring
-    version: 13.2.1
-  - name: grafana
-    <<: *monitoring
-    chart: grafana/{{`{{ .Release.Name }}`}}
-    version: 6.2.1
-  - name: openfaas
-    <<: *default
-    namespace: openfaas
-    chart: openfaas/{{`{{ .Release.Name }}`}}
-    version: 10.0.8
+
+  # Games
   - name: quake-kube
-    <<: *games
+    <<: *grahamplata
     chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.1.6
-  - name: minecraft
-    <<: *games
-    chart: itzg/{{`{{ .Release.Name }}`}}
-    version: 3.8.0
+    namespace: "games"
+
+  # Applications
   - name: home-assistant
     <<: *home-assistant
-    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
-    version: 12.0.1
+    version: 13.3.0
+
+  # Monitoring
+  - name: prometheus
+    <<: *prometheus
+    version: 15.10.5
+
+  # Ops
+  - name: cert-manager
+    <<: *cert-manager
+    version: v1.8.2
+  - name: ingress-nginx
+    <<: *ingress-nginx
+    version: 4.2.0

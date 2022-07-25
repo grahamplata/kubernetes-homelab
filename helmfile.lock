@@ -1,0 +1,22 @@
+version: v0.145.2
+dependencies:
+- name: cert-manager
+  repository: https://charts.jetstack.io
+  version: v1.8.2
+- name: home-assistant
+  repository: https://k8s-at-home.com/charts/
+  version: 13.3.0
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 4.2.0
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 15.10.5
+- name: quake-kube
+  repository: https://grahamplata.github.io/charts
+  version: 0.1.6
+- name: raw
+  repository: https://grahamplata.github.io/charts
+  version: 0.2.3
+digest: sha256:b4bf921a87ddddc9268e446f03771d95540ad690215f5b4b1acf4c5a1c76f1ca
+generated: "2022-07-24T21:38:42.130467-04:00"
