@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "hashicorp.terraform",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "redhat.vscode-yaml",
+    "timonwong.shellcheck",
+    "foxundermoon.shell-format",
+    "casualjim.gotemplate"
+  ]
+}
