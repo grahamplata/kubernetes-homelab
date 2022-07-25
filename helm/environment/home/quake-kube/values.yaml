@@ -36,7 +36,7 @@ quakeServer:
     type: Tournament
 
 service:
-  type: NodePort
+  type: ClusterIP
   clientPort: 8080
   serverPort: 27960
   contentPort: 9090
