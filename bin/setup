@@ -4,9 +4,6 @@ set -euo pipefail
 # Apply git hooks
 ./bin/sync-hooks
 
-# Install required tools
-./bin/install
-
 cat <<ReadMe
 
 MOTD:

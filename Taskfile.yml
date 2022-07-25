@@ -1,13 +1,22 @@
-version: '3'
+version: "3"
 
 # Global environment variables
 env:
   DEFAULT: "Take out the trash!"
 
 # Global include .env
-dotenv: ['.env']
+dotenv: [".env"]
+
+# Global Variables
+vars:
+  GIT_ROOT:
+    sh: git rev-parse --show-toplevel
+
+includes:
+  deps: .taskfiles/Taskfile_{{OS}}.yml
 
 tasks:
   default:
     cmds:
-      - echo $DEFAULT
+      - task -l
+    silent: true
