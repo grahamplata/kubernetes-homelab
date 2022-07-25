@@ -10,6 +10,7 @@ prometheus:
 webhook:
   replicaCount: 1
   timeoutSeconds: 10
+  securePort: 10251
 
 cainjector:
   enabled: true
