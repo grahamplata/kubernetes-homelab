@@ -14,3 +14,7 @@ repositories:
     url: https://grahamplata.github.io/charts
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
