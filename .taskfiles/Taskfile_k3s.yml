@@ -15,3 +15,31 @@ tasks:
           echo "{{.CRONTAB_DATA}}" | ssh "$SSH_USER@${SSH_SERVER}" crontab -
         done
     silent: true
+
+  uninstall:
+    desc: Uninstall k3s from all k3s nodes
+    cmds:
+      - echo "Uninstall k3s from all nodes"
+      - |
+        for SSH_SERVER in $(echo "$SSH_SERVERS" | sort | uniq); do
+          ssh "$SSH_USER@${SSH_SERVER}" "/usr/local/bin/k3s-agent-uninstall.sh -" 
+        done
+    silent: true
+
+  install:
+    desc: Sync crontab to all k3s nodes
+    cmds:
+      - echo "Install k3s"
+    silent: true
+
+  server:
+    desc: Install k3s server
+    cmds:
+      - echo "Install k3s server"
+    silent: true
+
+  agent:
+    desc: Install k3s agent
+    cmds:
+      - echo "Install k3s agent"
+    silent: true
