@@ -13,7 +13,9 @@ vars:
     sh: git rev-parse --show-toplevel
 
 includes:
-  deps: .taskfiles/Taskfile_{{OS}}.yml
+  setup: .taskfiles/Taskfile_{{OS}}.yml
+  helmfile: .taskfiles/Taskfile_helmfile.yml
+  k3s: .taskfiles/Taskfile_k3s.yml
 
 tasks:
   default:

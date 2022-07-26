@@ -1,0 +1,17 @@
+version: "3"
+
+# k3s Cluster
+vars:
+  DIR: $(pwd)/hack
+  CRONTAB_DATA: $(cat {{.DIR}}/crontab)
+
+tasks:
+  cron:
+    desc: Sync crontab to all k3s nodes
+    cmds:
+      - echo "Syncing crontab to all nodes"
+      - |
+        for SSH_SERVER in $(echo "$SSH_SERVERS" | sort | uniq); do
+          echo "{{.CRONTAB_DATA}}" | ssh "$SSH_USER@${SSH_SERVER}" crontab -
+        done
+    silent: true

@@ -1,5 +1,8 @@
 version: "3"
 
+# OS-specific Taskfiles
+# https://taskfile.dev/usage/#os-specific-taskfiles
+
 tasks:
   install:
     desc: Install all developer dependencies
@@ -8,8 +11,7 @@ tasks:
 
   requirements:
     desc: Check required packages packages
-    deps:
-      - install-brew
+    deps: [install-brew]
     cmds:
       - task deps:need PACKAGE=cfssl
       - task deps:need PACKAGE=kubernetes-cli
