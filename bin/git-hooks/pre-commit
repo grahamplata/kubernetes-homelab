@@ -1,8 +1,0 @@
-#!/bin/sh
-
-for f in $(git -C $(git rev-parse --show-toplevel) ls-files '**/secrets.yaml'); do
-    if ! grep -Lq 'sops:' "$f"; then
-        echo "Secret file $f is missing sops metadata"
-        exit 1
-    fi
-done
