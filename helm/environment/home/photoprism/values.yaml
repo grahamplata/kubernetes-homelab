@@ -1,0 +1,14 @@
+persistence:
+  config:
+    enabled: true
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    mountPath: /photoprism/storage
+
+  originals:
+    enabled: true
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 20Gi
+    mountPath: "/photoprism/originals"
