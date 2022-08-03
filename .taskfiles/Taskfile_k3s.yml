@@ -27,7 +27,7 @@ tasks:
     silent: true
 
   install:
-    desc: Sync crontab to all k3s nodes
+    desc: Sync k3s to all nodes
     cmds:
       - echo "Install k3s"
     silent: true

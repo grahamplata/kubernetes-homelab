@@ -36,13 +36,14 @@ quakeServer:
     type: Tournament
 
 service:
-  type: ClusterIP
+  type: NodePort
   clientPort: 8080
   serverPort: 27960
   contentPort: 9090
 
 persistence:
   annotations: {}
+  storageClass: nfs-client
   dataDir:
     enabled: true
     Size: 1Gi
