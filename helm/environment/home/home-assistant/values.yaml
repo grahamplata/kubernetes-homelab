@@ -29,6 +29,7 @@ ingress:
     tls:
       - hosts:
           - home.mooncity.dev
+          - code.mooncity.dev
         secretName: home-tls
     hosts:
       - host: home.mooncity.dev
@@ -40,6 +41,15 @@ ingress:
                 name: home-assistant
                 port:
                   number: 8123
+      - host: code.mooncity.dev
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: home-assistant-codeserver
+                port:
+                  number: 12321
 
 service:
   main:
