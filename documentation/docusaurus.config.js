@@ -40,9 +40,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "My Site",
+        title: "Home Lab",
         logo: {
-          alt: "My Site Logo",
+          alt: "My Home Lab",
           src: "img/logo.svg",
         },
         items: [
@@ -50,7 +50,7 @@ const config = {
             type: "doc",
             docId: "intro",
             position: "left",
-            label: "Tutorial",
+            label: "Docs",
           },
           {
             href: "https://github.com/facebook/docusaurus",
