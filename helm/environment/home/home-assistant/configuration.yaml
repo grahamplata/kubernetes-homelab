@@ -1,0 +1,31 @@
+http:
+  server_host: 0.0.0.0
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    # Pod CIDR
+    - 10.69.0.0/16
+    - 10.42.3.0/24
+    - 10.42.2.0/24
+    - 10.42.1.0/24
+    - 10.42.0.0/24
+    # Node CIDR
+    - 192.168.6.0/24
+    # tailscale
+    - 100.64.0.0/10
+    # Other
+    - 10.0.0.0/8
+    - 127.0.0.1
+    - ::1
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
