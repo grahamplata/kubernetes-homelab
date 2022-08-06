@@ -1,7 +1,11 @@
 ---
-title: Markdown page example
+title: Graham Plata's Home Lab
 ---
 
-# Markdown page example
+## Description
 
-You don't need React to write simple standalone pages.
+My Kubernetes homelab configuration.
+
+## Intent
+
+@grahamplata TODO
