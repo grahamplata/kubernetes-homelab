@@ -20,3 +20,5 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: nfs-subdir-external-provisioner
     url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+  - name: linkerd
+    url: https://helm.linkerd.io/stable
