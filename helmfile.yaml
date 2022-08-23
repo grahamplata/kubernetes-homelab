@@ -45,6 +45,16 @@ templates:
     <<: *default
     chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
     namespace: "ingress-nginx"
+  linkerd: &linkerd
+    <<: *default
+    chart: linkerd/linkerd2
+    # The chart creates linkerd namespace
+    createNamespace: false
+    condition: linkerd.enabled
+  linkerd-viz: &linkerd-viz
+    <<: *default
+    chart: linkerd/linkerd-viz
+    createNamespace: true
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
@@ -81,3 +91,10 @@ releases:
     <<: *nfs-subdir-external-provisioner
     namespace: "nfs-server"
     version: 4.0.16
+
+  # Mesh
+  - name: linkerd
+    <<: *linkerd
+    version: 2.11.4
+  - name: linkerd-viz
+    <<: *linkerd-viz

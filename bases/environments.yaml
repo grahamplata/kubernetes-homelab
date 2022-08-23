@@ -6,7 +6,11 @@
 # - `{{ .Environment.Name }}` evaluates to "default"
 # - `{{ .Values }}` being empty
 environments:
-  home: {}
+  home:
+    kubeContext: k3s
+    values:
+      - linkerd:
+          enabled: true
   civo: {}
   gcp: {}
   kind: {}
