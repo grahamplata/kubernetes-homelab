@@ -6,3 +6,4 @@ variable "homelab_0_ip" {}
 variable "homelab_1_ip" {}
 variable "homelab_2_ip" {}
 variable "homelab_3_ip" {}
+variable "homelab_4_ip" {}
