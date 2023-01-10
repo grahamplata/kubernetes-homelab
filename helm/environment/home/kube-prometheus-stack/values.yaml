@@ -1,0 +1,77 @@
+defaultRules:
+  create: false
+
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: true
+  defaultDashboardsEnabled: true
+
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      kubernetes.io/ingress.class: "nginx"
+    labels: {}
+    hosts: 
+      - grafana.mooncity.dev
+    path: /
+    tls:
+      - hosts:
+          - grafana.mooncity.dev
+        secretName: grafana-tls
+
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+      isDefaultDatasource: true
+      uid: prometheus
+      createPrometheusReplicasDatasources: false
+      label: grafana_datasource
+      labelValue: "1"
+
+kubeApiServer:
+  enabled: true
+
+kubelet:
+  enabled: true
+ 
+kubeControllerManager:
+  enabled: true
+
+coreDns:
+  enabled: true
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: true
+
+kubeProxy:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+prometheusOperator:
+  enabled: true
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    storageSpec:
+     volumeClaimTemplate:
+       spec:
+         storageClassName: nfs-client
+         accessModes: ["ReadWriteOnce"]
+         resources:
+           requests:
+             storage: 50Gi

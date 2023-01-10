@@ -91,6 +91,9 @@ releases:
     <<: *nfs-subdir-external-provisioner
     namespace: "nfs-server"
     version: 4.0.17
+  - name: kube-prometheus-stack
+    <<: *prometheus
+    version: 43.2.1
 
   # # Mesh
   # - name: linkerd
