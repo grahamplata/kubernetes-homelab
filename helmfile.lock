@@ -3,6 +3,9 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.10.1
+- name: connect
+  repository: https://1password.github.io/connect-helm-charts
+  version: 1.10.0
 - name: home-assistant
   repository: https://k8s-at-home.com/charts/
   version: 13.4.2
@@ -24,5 +27,5 @@ dependencies:
 - name: raw
   repository: https://grahamplata.github.io/charts
   version: 0.2.3
-digest: sha256:93d93e54f3b44ae58cfb6669df76fc22bba14bb18e7882a27135968aad072b90
-generated: "2023-01-08T19:04:40.257919-05:00"
+digest: sha256:eeb65f31ad6792439e2d57cb122abdc1302f40ea92c0b66740ef38e0e8489771
+generated: "2023-01-11T20:45:03.922424-05:00"
