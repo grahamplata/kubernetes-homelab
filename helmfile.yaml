@@ -23,6 +23,10 @@ templates:
     <<: *default
     namespace: "home-assistant"
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+  1password: &1password
+    <<: *default
+    namespace: "ops"
+    chart: 1password/{{`{{ .Release.Name }}`}}
   photoprism: &photoprism
     <<: *home-assistant
     namespace: "photoprism"
@@ -44,7 +48,6 @@ templates:
   nfs-subdir-external-provisioner: &nfs-subdir-external-provisioner
     <<: *default
     chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
-    namespace: "ingress-nginx"
   linkerd: &linkerd
     <<: *default
     chart: linkerd/linkerd2
@@ -94,6 +97,10 @@ releases:
   - name: kube-prometheus-stack
     <<: *prometheus
     version: 43.2.1
+  - name: connect
+    <<: *1password
+    namespace: "1password"
+    version: 1.10.0
 
   # # Mesh
   # - name: linkerd

@@ -22,3 +22,5 @@ repositories:
     url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
   - name: linkerd
     url: https://helm.linkerd.io/stable
+  - name: 1password
+    url: https://1password.github.io/connect-helm-charts
