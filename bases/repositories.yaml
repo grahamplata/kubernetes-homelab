@@ -24,3 +24,5 @@ repositories:
     url: https://helm.linkerd.io/stable
   - name: 1password
     url: https://1password.github.io/connect-helm-charts
+  - name: traefik
+    url: https://traefik.github.io/charts

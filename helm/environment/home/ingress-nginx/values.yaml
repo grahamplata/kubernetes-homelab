@@ -1,5 +1,0 @@
-controller:
-  admissionWebhooks:
-    enabled: true
-    timeoutSeconds: 30
-
