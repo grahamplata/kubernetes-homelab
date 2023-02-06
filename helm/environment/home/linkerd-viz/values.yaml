@@ -1,4 +1,0 @@
-linkerdNamespace: linkerd
-
-prometheus:
-  enabled: true

@@ -12,8 +12,7 @@ grafana:
     enabled: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      kubernetes.io/ingress.class: "nginx"
-    labels: {}
+      kubernetes.io/ingress.class: "traefik"
     hosts: 
       - grafana.mooncity.dev
     path: /

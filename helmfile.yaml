@@ -25,7 +25,7 @@ templates:
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
   1password: &1password
     <<: *default
-    namespace: "ops"
+    namespace: "1password"
     chart: 1password/{{`{{ .Release.Name }}`}}
   photoprism: &photoprism
     <<: *home-assistant
@@ -41,23 +41,13 @@ templates:
     <<: *default
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
-  ingress-nginx: &ingress-nginx
-    <<: *default
-    chart: ingress-nginx/{{`{{ .Release.Name }}`}}
-    namespace: "ingress-nginx"
   nfs-subdir-external-provisioner: &nfs-subdir-external-provisioner
     <<: *default
     chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
-  linkerd: &linkerd
+  traefik: &traefik
     <<: *default
-    chart: linkerd/linkerd2
-    # The chart creates linkerd namespace
-    createNamespace: false
-    condition: linkerd.enabled
-  linkerd-viz: &linkerd-viz
-    <<: *default
-    chart: linkerd/linkerd-viz
-    createNamespace: true
+    chart: traefik/{{`{{ .Release.Name }}`}}
+    namespace: "traefik"
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
@@ -87,9 +77,9 @@ releases:
   - name: cert-manager
     <<: *cert-manager
     version: v1.10.1
-  - name: ingress-nginx
-    <<: *ingress-nginx
-    version: 4.2.2
+  - name: traefik
+    <<: *traefik
+    version: 20.8.0
   - name: nfs-subdir-external-provisioner
     <<: *nfs-subdir-external-provisioner
     namespace: "nfs-server"
@@ -101,10 +91,3 @@ releases:
     <<: *1password
     namespace: "1password"
     version: 1.10.0
-
-  # # Mesh
-  # - name: linkerd
-  #   <<: *linkerd
-  #   version: 2.11.4
-  # - name: linkerd-viz
-  #   <<: *linkerd-viz
