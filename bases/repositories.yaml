@@ -26,3 +26,5 @@ repositories:
     url: https://1password.github.io/connect-helm-charts
   - name: traefik
     url: https://traefik.github.io/charts
+  - name: longhorn
+    url: https://charts.longhorn.io
