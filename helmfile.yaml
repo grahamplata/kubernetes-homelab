@@ -48,6 +48,11 @@ templates:
     <<: *default
     chart: traefik/{{`{{ .Release.Name }}`}}
     namespace: "traefik"
+  longhorn: &longhorn
+    <<: *default
+    chart: longhorn/{{`{{ .Release.Name }}`}}
+    namespace: "longhorn-system"
+    condition: longhorn.enabled
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
@@ -80,10 +85,6 @@ releases:
   - name: traefik
     <<: *traefik
     version: 20.8.0
-  - name: nfs-subdir-external-provisioner
-    <<: *nfs-subdir-external-provisioner
-    namespace: "nfs-server"
-    version: 4.0.17
   - name: kube-prometheus-stack
     <<: *prometheus
     version: 43.2.1
@@ -91,3 +92,13 @@ releases:
     <<: *1password
     namespace: "1password"
     version: 1.10.0
+
+    # Storage
+  - name: longhorn
+    <<: *longhorn
+    version: 1.4.0
+
+  - name: nfs-subdir-external-provisioner
+    <<: *nfs-subdir-external-provisioner
+    namespace: "nfs-server"
+    version: 4.0.17
