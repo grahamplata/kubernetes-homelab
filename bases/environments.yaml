@@ -8,6 +8,9 @@
 environments:
   home:
     kubeContext: k3s
+    values:
+    - longhorn:
+        enabled: true
   civo: {}
   gcp: {}
   kind: {}
