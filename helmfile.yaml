@@ -48,11 +48,6 @@ templates:
     <<: *default
     chart: traefik/{{`{{ .Release.Name }}`}}
     namespace: "traefik"
-  longhorn: &longhorn
-    <<: *default
-    chart: longhorn/{{`{{ .Release.Name }}`}}
-    namespace: "longhorn-system"
-    condition: longhorn.enabled
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
@@ -62,13 +57,6 @@ releases:
   - name: raw
     <<: *grahamplata
     version: 0.2.3
-
-  # Games
-  - name: quake-kube
-    <<: *grahamplata
-    chart: grahamplata/{{`{{ .Release.Name }}`}}
-    version: 0.1.6
-    namespace: "games"
 
   # Applications
   - name: home-assistant
@@ -94,10 +82,6 @@ releases:
     version: 1.10.0
 
     # Storage
-  - name: longhorn
-    <<: *longhorn
-    version: 1.4.0
-
   - name: nfs-subdir-external-provisioner
     <<: *nfs-subdir-external-provisioner
     namespace: "nfs-server"
