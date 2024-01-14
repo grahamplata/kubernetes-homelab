@@ -1,5 +1,4 @@
 # Base helmfile
-#
 bases:
   - "bases/repositories.yaml"
   - "bases/helmDefaults.yaml"
@@ -7,7 +6,6 @@ bases:
 
 # Templating
 # Uses Go templates for templating and the functions in the Sprig library.
-#
 templates:
   default: &default
     chart: stable/{{`{{ .Release.Name }}`}}
@@ -19,70 +17,72 @@ templates:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
     secrets:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
-  home-assistant: &home-assistant
-    <<: *default
-    namespace: "home-assistant"
-    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
-  1password: &1password
-    <<: *default
-    namespace: "1password"
-    chart: 1password/{{`{{ .Release.Name }}`}}
-  photoprism: &photoprism
-    <<: *home-assistant
-    namespace: "photoprism"
-  grahamplata: &grahamplata
-    <<: *default
-    chart: grahamplata/{{`{{ .Release.Name }}`}}
-  cert-manager: &cert-manager
-    <<: *default
-    chart: jetstack/{{`{{ .Release.Name }}`}}
-    namespace: "cert-manager"
-  prometheus: &prometheus
-    <<: *default
-    chart: prometheus-community/{{`{{ .Release.Name }}`}}
-    namespace: "monitoring"
-  nfs-subdir-external-provisioner: &nfs-subdir-external-provisioner
-    <<: *default
-    chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
-  traefik: &traefik
-    <<: *default
-    chart: traefik/{{`{{ .Release.Name }}`}}
-    namespace: "traefik"
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
-#
 releases:
   # Misc
   - name: raw
-    <<: *grahamplata
+    chart: grahamplata/{{`{{ .Release.Name }}`}}
     version: 0.2.3
+    inherit:
+      - template: default
 
   # Applications
   - name: home-assistant
-    <<: *home-assistant
+    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+    namespace: "home-assistant"
     version: 13.4.2
+    inherit:
+      - template: default
+
   - name: photoprism
-    <<: *photoprism
+    chart: k8s-at-home/{{`{{ .Release.Name }}`}}
+    namespace: "photoprism"
     version: 7.1.2
+    inherit:
+      - template: default
 
   # Ops
   - name: cert-manager
-    <<: *cert-manager
+    chart: jetstack/{{`{{ .Release.Name }}`}}
+    namespace: "cert-manager"
     version: v1.10.1
+    inherit:
+      - template: default
+
   - name: traefik
-    <<: *traefik
+    chart: traefik/{{`{{ .Release.Name }}`}}
+    namespace: "traefik"
     version: 20.8.0
+    inherit:
+      - template: default
+
   - name: kube-prometheus-stack
-    <<: *prometheus
+    chart: prometheus-community/{{`{{ .Release.Name }}`}}
+    namespace: "monitoring"
     version: 43.2.1
+    inherit:
+      - template: default
+
+  - name: uptime-kuma
+    chart: uptime-kuma/{{`{{ .Release.Name }}`}}
+    namespace: "monitoring"
+    version: 2.17.0
+    inherit:
+      - template: default
+
   - name: connect
-    <<: *1password
+    chart: 1password/{{`{{ .Release.Name }}`}}
     namespace: "1password"
     version: 1.10.0
+    inherit:
+      - template: default
 
     # Storage
   - name: nfs-subdir-external-provisioner
-    <<: *nfs-subdir-external-provisioner
+    chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
     namespace: "nfs-server"
     version: 4.0.17
+    inherit:
+      - template: default
