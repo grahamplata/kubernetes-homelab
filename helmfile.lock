@@ -1,4 +1,4 @@
-version: v0.145.2
+version: v0.160.0
 dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
@@ -12,23 +12,23 @@ dependencies:
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
   version: 43.2.1
-- name: longhorn
-  repository: https://charts.longhorn.io
-  version: 1.4.0
+- name: mosquitto
+  repository: https://k8s-at-home.com/charts/
+  version: 4.8.2
 - name: nfs-subdir-external-provisioner
   repository: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
   version: 4.0.17
 - name: photoprism
   repository: https://k8s-at-home.com/charts/
   version: 7.1.2
-- name: quake-kube
-  repository: https://grahamplata.github.io/charts
-  version: 0.1.6
 - name: raw
   repository: https://grahamplata.github.io/charts
   version: 0.2.3
 - name: traefik
   repository: https://traefik.github.io/charts
   version: 20.8.0
-digest: sha256:e406bf1ad26db293c2270fea691df88ada0a85056b0bcd159cb3b1a312a987f2
-generated: "2023-02-07T22:01:14.603862-05:00"
+- name: uptime-kuma
+  repository: https://helm.irsigler.cloud
+  version: 2.17.0
+digest: sha256:29f2b7f554a383b87bd52307c7f3cdc4c392c686d17b960f90f0092c60bfbbdf
+generated: "2024-01-13T21:37:48.959356-05:00"

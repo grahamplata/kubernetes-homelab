@@ -11,6 +11,3 @@ tfplan
 .tfvars
 terraform.tfstate
 terraform.tfstate.backup
-
-# Linkerd certs
-**/certs
